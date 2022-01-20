@@ -35,8 +35,9 @@ schema = {'properties': {
     'hiring_lead': {'type': 'string'},
     'board_code': {'type': 'string'},
     'internal_code': {'type': 'string'},
-    'questionnaire': {'type': 'string'}
-    }
+    'questionnaire': {'type': 'integer'}
+    },
+    "primary_key": "id"
   }
 singer.write_schema(stream_name="jazzhr_jobs", schema=schema, key_properties=[])
 
@@ -53,8 +54,8 @@ for job in jobs:
     'zip': job["zip"],
     'department': job["department"],
     'description': job["description"],
-    'minimum_salary': job["minimum_salary"],
-    'maximum_salary': job["maximum_salary"],
+    'minimum_salary': float(job["minimum_salary"]),
+    'maximum_salary': float(job["maximum_salary"]),
     'notes': job["notes"],
     'original_open_date': job["original_open_date"],
     'type': job["type"],
@@ -63,5 +64,5 @@ for job in jobs:
     'hiring_lead': job["hiring_lead"],
     'board_code': job["board_code"],
     'internal_code': job["internal_code"],
-    'questionnaire': job["questionnaire"]
+    'questionnaire': int(job["questionnaire"])
     })
