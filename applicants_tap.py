@@ -9,9 +9,9 @@ load_dotenv(dotenv_path)
 JAZZHR_KEY = os.environ.get("jazzhr_key")
 endpoint = "https://api.resumatorapi.com/v1/"
 route = "applicants"
-
+page=1
 def retrieve_jazzhr_applicants():
-  authenticated_endpoint = "{}{}?apikey={}".format(endpoint, route, JAZZHR_KEY)
+  authenticated_endpoint = "{}{}/page/{}?apikey={}".format(endpoint, route, page, JAZZHR_KEY)
   api_response = requests.get(authenticated_endpoint).json()
   return api_response
 
@@ -27,8 +27,13 @@ schema = {'properties': {
     "primary_key": "id"
   }
 singer.write_schema(stream_name="jazzhr_applicants", schema=schema, key_properties=[])
-
-applicants = retrieve_jazzhr_applicants()
+applicants = []
+pursue=True
+while pursue:
+    response = retrieve_jazzhr_applicants()
+    applicants = applicants + response
+    page = page +1
+    if len(response)<100 : pursue=False
 for applicant in applicants:
   singer.write_record(stream_name="jazzhr_applicants",  
   record={
