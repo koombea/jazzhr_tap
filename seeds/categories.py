@@ -41,7 +41,7 @@ current_categories=retrieve_all_categories()
 
 new_categories=[]
 i=0
-while i<5:
+while i<20: # this number defines how many new items will be created
   category_data = {
   "name": fake.text(10),
   "status": np.random.randint(1, 3),
