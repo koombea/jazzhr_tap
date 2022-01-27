@@ -1,6 +1,5 @@
 from faker import Faker
 import numpy as np
-import random
 import requests
 import os
 from os.path import join, dirname
