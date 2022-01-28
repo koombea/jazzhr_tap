@@ -42,13 +42,14 @@ current_qa_list=retrieve_all_items("questionnaire_answers")
 
 new_categories=[]
 i=0
-while i<20: # this number defines how many new items will be created
+while i<10: # this number defines how many new items will be created
   a2j = random.choice(current_a2j_list)
-  invalid = any(current_qa["applicant_id"]==a2j['applicant_id'] and current_qa["job_id"]==a2j['job_id'] for current_qa in current_qa_list)
+  random_questionnaire=random.choice(["questionnaire_20220126195522_QD6FSWHN56OSJEXK","questionnaire_20220127003308_JDFZN564QK5XEHVQ", "questionnaire_20220120171318_UTSVJTUEUGUKPLIK"])
+  invalid = any(current_qa["applicant_id"]==a2j['applicant_id'] and current_qa["job_id"]==a2j['job_id'] and current_qa["questionnaire_id"]==random_questionnaire for current_qa in current_qa_list)
   if invalid==False:
     qa_data = {
     "applicant_id": a2j["applicant_id"],
-    "questionnaire_id": random.choice(["questionnaire_20220126195522_QD6FSWHN56OSJEXK","questionnaire_20220127003308_JDFZN564QK5XEHVQ"]),
+    "questionnaire_id": random_questionnaire,
     "job_id": a2j["job_id"],
     "answer_value_01": fake.text(),
     "answer_value_02": fake.text(),
