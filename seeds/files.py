@@ -33,9 +33,9 @@ def retrieve_all_items(resource):
     if len(response)<100 : pursue=False
   return items
 
-def post_jazzhr_files(category_data):
+def post_jazzhr_files(file_data):
   authenticated_endpoint = "{}files".format(endpoint)
-  api_response = requests.post(authenticated_endpoint, json= category_data).json()
+  api_response = requests.post(authenticated_endpoint, json= file_data).json()
   return api_response
 
 applicants = retrieve_all_items("applicants")

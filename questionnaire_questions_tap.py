@@ -14,7 +14,7 @@ def retrieve_questionnaires_per_page(page):
   authenticated_endpoint = "{}questionnaire_answers/page/{}?apikey={}".format(endpoint, page, JAZZHR_KEY)
   api_response = requests.get(authenticated_endpoint).json()
   # next line is necessary because when only one element the response is not a list but the only object
-  if type(api_response)!=list: api_response=[api_response["questionnaire_id"]] 
+  if type(api_response)!=list: api_response=[api_response] 
   return list(map(lambda d: d["questionnaire_id"], api_response))
 
 def retrieve_all_questionnaires():
