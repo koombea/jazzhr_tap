@@ -10,9 +10,5 @@ schema = {'properties': {
   }
 stream = "jazzhr_categories2applicants"
 def read_record(item):
-  return {
-    "id": item['id'], 
-    'applicant_id': item["applicant_id"],
-    'category_id': item["category_id"]
-    }
+  return item
 run_jazz_tap(route, schema, stream, read_record)

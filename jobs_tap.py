@@ -21,32 +21,13 @@ schema = {'properties': {
     'hiring_lead': {'type': 'string'},
     'board_code': {'type': 'string'},
     'internal_code': {'type': 'string'},
-    'questionnaire': {'type': 'integer'}
+    'questionnaire': {'type': 'string'}
     },
     "primary_key": "id"
   }
 stream = "jazzhr_jobs"
 def read_record(item):
-  return {
-      "id": item['id'], 
-      'team_id': item["team_id"],
-      'title': item["title"],
-      'country_id': item["country_id"],
-      'city': item["city"],
-      'state': item["state"],
-      'zip': item["zip"],
-      'department': item["department"],
-      'description': item["description"],
-      'minimum_salary': float(item["minimum_salary"]),
-      'maximum_salary': float(item["maximum_salary"]),
-      'notes': item["notes"],
-      'original_open_date': item["original_open_date"],
-      'type': item["type"],
-      'status': item["status"],
-      'send_to_job_boards': item["send_to_job_boards"],
-      'hiring_lead': item["hiring_lead"],
-      'board_code': item["board_code"],
-      'internal_code': item["internal_code"],
-      'questionnaire': int(item["questionnaire"])
-      }
+  item["minimum_salary"] = float(item["minimum_salary"])
+  item["maximum_salary"] = float(item["maximum_salary"])
+  return item
 run_jazz_tap(route, schema, stream, read_record)

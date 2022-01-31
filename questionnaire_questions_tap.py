@@ -58,15 +58,6 @@ schema = {'properties': {
 singer.write_schema(stream_name=stream, schema=schema, key_properties=[])
 
 for question in all_questions:
+  question["question_order"]=int(question["question_order"])
   singer.write_record(stream_name=stream,  
-  record= {
-      "questionnaire_id": question['questionnaire_id'], 
-      'questionnaire_code': question["questionnaire_code"],
-      'question_text': question["question_text"],
-      'question_answers': question["question_answers"],
-      'question_format': question["question_format"],
-      'question_order': int(question["question_order"]),
-      'question_mandatory': question["question_mandatory"],
-      'question_correct_answer': question["question_correct_answer"],
-      'question_status': question["question_status"]
-      })
+  record= question)
