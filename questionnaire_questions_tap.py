@@ -48,7 +48,7 @@ schema = {'properties': {
     'question_answers': {'type': 'string'},
     'question_format': {'type': 'string'},
     'question_order': {'type': 'integer'},
-    'question_mandatory': {'type': 'string'},
+    'question_mandatory': {'type': 'boolean'},
     'question_correct_answer': {'type': 'string'},
     'question_status': {'type': 'string'}
     },
@@ -58,6 +58,7 @@ schema = {'properties': {
 singer.write_schema(stream_name=stream, schema=schema, key_properties=[])
 
 for question in all_questions:
+  question["question_mandatory"]= True if question["question_mandatory"]=='Yes' else False
   question["question_order"]=int(question["question_order"])
   singer.write_record(stream_name=stream,  
   record= question)

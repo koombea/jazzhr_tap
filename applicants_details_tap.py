@@ -61,7 +61,8 @@ schema = {'properties': {
     'eeoc_disability': {'type': ["string", "null"]},
     'eeoc_disability_signature': {'type': ["string", "null"]},
     'eeoc_disability_date':  { "type": ["string", "null"], "format": "date"},
-    'apply_date': { "type": "string", "format": "date"}
+    'apply_date': { "type": "string", "format": "date"},
+    "resume_body": {'type': 'string'}
     },
     "primary_key": "id"
   }
