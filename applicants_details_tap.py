@@ -63,10 +63,9 @@ schema = {'properties': {
     'eeoc_disability_date':  { "type": ["string", "null"], "format": "date"},
     'apply_date': { "type": "string", "format": "date"},
     "resume_body": {'type': 'string'}
-    },
-    "primary_key": "id"
+    }
   }
-singer.write_schema(stream_name="jazzhr_applicants_details", schema=schema, key_properties=[])
+singer.write_schema(stream_name="jazzhr_applicants_details", schema=schema, key_properties=["id"])
 applicants = []
 pursue=True
 while pursue:

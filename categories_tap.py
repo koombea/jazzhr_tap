@@ -7,10 +7,10 @@ schema = {'properties': {
     'status': {'type': 'string'},
     'created_by': {'type': 'string'},
     'date_created': { "type": "string", "format": "date"}
-    },
-    "primary_key": "id"
+    }
   }
 stream = "jazzhr_categories"
+key_properties=["id"]
 def read_record(item):
   return item
-run_jazz_tap(route, schema, stream, read_record)
+run_jazz_tap(route, schema, stream, read_record, key_properties)

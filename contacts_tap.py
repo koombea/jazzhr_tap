@@ -22,10 +22,10 @@ schema = {'properties': {
     'date_created': { "type": "string", "format": "date"},
     'date_edited': { "type": "string", "format": "date"},
     'date_login': { "type": "string", "format": "date"}
-    },
-    "primary_key": "id"
+    }
   }
 stream = "jazzhr_contacts"
+key_properties=["id"]
 def read_record(item):
   return item
-run_jazz_tap(route, schema, stream, read_record)
+run_jazz_tap(route, schema, stream, read_record, key_properties)

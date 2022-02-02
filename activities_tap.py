@@ -10,10 +10,10 @@ schema = {'properties': {
     'action': {'type': 'string'},
     'date': { "type": "string", "format": "date"},
     'time': { "type": "string", "format": "time"}
-    },
-    "primary_key": "id"
+    }
   }
 stream = "jazzhr_activities"
+key_properties=["id"]
 def read_record(item):
   return item
-run_jazz_tap(route, schema, stream, read_record)
+run_jazz_tap(route, schema, stream, read_record, key_properties)

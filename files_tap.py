@@ -57,11 +57,10 @@ schema = {'properties': {
     'date_loaded': {"type": "string", "format": "date"},
     'time_loaded': {"type": "string", "format": "time"},
     'file_url': {'type': 'string'}
-    },
-    "primary_key": "id"
+    }
   }
 
-singer.write_schema(stream_name=stream, schema=schema, key_properties=[])
+singer.write_schema(stream_name=stream, schema=schema, key_properties=["id"])
 
 for file in all_files:
   file["file_size"]=int(file["file_size"])

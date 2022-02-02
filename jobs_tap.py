@@ -22,12 +22,12 @@ schema = {'properties': {
     'board_code': {'type': 'string'},
     'internal_code': {'type': 'string'},
     'questionnaire': {'type': 'string'}
-    },
-    "primary_key": "id"
+    }
   }
+key_properties=["id"]
 stream = "jazzhr_jobs"
 def read_record(item):
   item["minimum_salary"] = float(item["minimum_salary"])
   item["maximum_salary"] = float(item["maximum_salary"])
   return item
-run_jazz_tap(route, schema, stream, read_record)
+run_jazz_tap(route, schema, stream, read_record, key_properties)

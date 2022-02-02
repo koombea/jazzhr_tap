@@ -8,11 +8,11 @@ schema = {'properties': {
     'rating': {'type': 'integer'},
     'workflow_step_id': { "type": "string"},
     'date': { "type": "string", "format": "date"}
-    },
-    "primary_key": "id"
+    }
   }
 stream = "jazzhr_applicants2jobs"
 def read_record(item):
   item["rating"] = int(item["rating"])
   return item
-run_jazz_tap(route, schema, stream, read_record)
+key_properties=["id"]
+run_jazz_tap(route, schema, stream, read_record, key_properties)

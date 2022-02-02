@@ -51,11 +51,10 @@ schema = {'properties': {
     'question_mandatory': {'type': 'boolean'},
     'question_correct_answer': {'type': 'string'},
     'question_status': {'type': 'string'}
-    },
-    "primary_key": "questionnaire_id"
+    }
   }
 
-singer.write_schema(stream_name=stream, schema=schema, key_properties=[])
+singer.write_schema(stream_name=stream, schema=schema, key_properties=["questionnaire_id", "question_order"])
 
 for question in all_questions:
   question["question_mandatory"]= True if question["question_mandatory"]=='Yes' else False

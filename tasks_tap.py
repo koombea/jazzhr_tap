@@ -15,11 +15,11 @@ schema = {'properties': {
     'due_whenever': {'type': 'boolean'},
     'date_created': { "type": "string", "format": "date"},
     'time_created': { "type": "string", "format": "time"}
-    },
-    "primary_key": "id"
+    }
   }
 stream = "jazzhr_tasks"
+key_properties=["id"]
 def read_record(item):
   item["due_whenever"] = True if item["due_whenever"]=='Yes' else False
   return item
-run_jazz_tap(route, schema, stream, read_record)
+run_jazz_tap(route, schema, stream, read_record, key_properties)
