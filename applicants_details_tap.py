@@ -70,6 +70,12 @@ schema = {
       "items": {
         "$ref": "#/definitions/activity"
       }
+    },
+    "jobs": {
+      "type": [ "null", "array" ],
+      "items": {
+        "$ref": "#/definitions/job"
+      }
     }
     },
     "definitions": {
@@ -77,9 +83,20 @@ schema = {
         "type": "object",
         "properties": {
           "id": { "type": "string"},
-        "activity": { "type": [ "string", "null" ]},
-        'date':  { "type": ["string", "null"], "format": "date"},
-        'time':  { "type": ["string", "null"], "format": "time"}
+          "activity": { "type": [ "string", "null" ]},
+          'date':  { "type": "string", "format": "date"},
+          'time':  { "type": "string", "format": "time"}
+      }
+    },
+    "job": {
+        "type": "object",
+        "properties": {
+          "job_id": { "type": "string"},
+          "hiring_lead_rating": { "type": "integer"},
+          "average_rating": { "type": "number"},
+          "workflow_step_id": { "type": ["string", "null"]},
+          "job_title": { "type": "string"},
+          "applicant_progress": { "type": "string"}
       }
     }
   }
@@ -94,7 +111,10 @@ while pursue:
     if len(response)<100 : pursue=False
 for applicant_ in applicants:
   applicant = retrieve_jazzhr_applicant_details(applicant_)
-  
   if type(applicant["activities"])!=list: applicant["activities"]=[applicant["activities"]] 
+  if type(applicant["jobs"])!=list: applicant["jobs"]=[applicant["jobs"]] 
+  for i in range(len(applicant["jobs"])):
+    applicant["jobs"][i]["hiring_lead_rating"]=int(applicant["jobs"][i]["hiring_lead_rating"])
+    applicant["jobs"][i]["average_rating"]=float(applicant["jobs"][i]["average_rating"])
   singer.write_record(stream_name="jazzhr_applicants_details",  
   record=applicant)
