@@ -76,6 +76,36 @@ schema = {
       "items": {
         "$ref": "#/definitions/job"
       }
+    },
+    "feedback": {
+      "type": [ "null", "array" ],
+      "items": {
+        "$ref": "#/definitions/feedback"
+      }
+    },
+    "messages": {
+      "type": [ "null", "array" ],
+      "items": {
+        "$ref": "#/definitions/message"
+      }
+    },
+    "questionnaire": {
+      "type": [ "null", "array" ],
+      "items": {
+        "$ref": "#/definitions/questionnaire"
+      }
+    },
+    "evaluation": {
+      "type": [ "null", "array" ],
+      "items": {
+        "$ref": "#/definitions/evaluation"
+      }
+    },
+    "categories": {
+      "type": [ "null", "array" ],
+      "items": {
+        "$ref": "#/definitions/category"
+      }
     }
     },
     "definitions": {
@@ -98,6 +128,57 @@ schema = {
           "job_title": { "type": "string"},
           "applicant_progress": { "type": "string"}
       }
+    },
+    "feedback": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string"},
+          "author_id": { "type": "string"},
+          "text": { "type": "string"},
+          "date": { "type": "string", "format": "date"},
+          "time": { "type": "string", "format": "time"},
+          "privacy": { "type": "string"},
+          "is_external": { "type": "string"}
+      }
+    },
+    "message": {
+        "type": "object",
+        "properties": {
+          "comm_id": { "type": "string"},
+          "comm_subject": { "type": "string"},
+          "comm_text": { "type": "string"},
+          "comm_author_email": { "type": "string"},
+          "comm_to": { "type": "string"},
+          "comm_cc": { "type": "string"},
+          "comm_bcc": { "type": "string"},
+          "comm_datetime_sent": { "type": "string", "format": "datetime"}
+      }
+    },
+    "questionnaire": {
+        "type": "object",
+        "properties": {
+          "question": { "type": "string"},
+          "answer": { "type": "string"}
+      }
+    },
+    "evaluation": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string"},
+          "name": { "type": "string"},
+          "category": { "type": "string"},
+          "rating": { "type": "integer"},
+          "comment": { "type": "string"}
+      }
+    },
+    "category": {
+        "type": "object",
+        "properties": {
+          "category_id": { "type": "string"},
+          "name": { "type": "string"},
+          "date_created": { "type": "string", "format": "date"},
+          "status": { "type": "string"}
+      }
     }
   }
 }
@@ -116,5 +197,12 @@ for applicant_ in applicants:
   for i in range(len(applicant["jobs"])):
     applicant["jobs"][i]["hiring_lead_rating"]=int(applicant["jobs"][i]["hiring_lead_rating"])
     applicant["jobs"][i]["average_rating"]=float(applicant["jobs"][i]["average_rating"])
+  if type(applicant["feedback"])!=list: applicant["feedback"]=[applicant["feedback"]]
+  if type(applicant["messages"])!=list: applicant["messages"]=[applicant["messages"]]
+  if type(applicant["questionnaire"])!=list: applicant["questionnaire"]=[applicant["questionnaire"]] 
+  if type(applicant["evaluation"])!=list: applicant["evaluation"]=[applicant["evaluation"]] 
+  for i in range(len(applicant["evaluation"])):
+    applicant["evaluation"][i]["rating"]=int(applicant["evaluation"][i]["rating"])
+  if type(applicant["categories"])!=list: applicant["categories"]=[applicant["categories"]] 
   singer.write_record(stream_name="jazzhr_applicants_details",  
   record=applicant)
