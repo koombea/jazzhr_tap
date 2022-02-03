@@ -41,7 +41,8 @@ for q in list_questionnaires:
   all_questions = all_questions + retrieve_questionnaire_questions(q)
 
 stream = "jazzhr_questionnaire_questions"
-schema = {'properties': {
+schema = {"type": "object",
+  'properties': {
     'questionnaire_id': {'type': 'string'},
     'questionnaire_code': {'type': 'string'},
     'question_text': {'type': 'string'},

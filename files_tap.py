@@ -46,7 +46,9 @@ for a in applicants:
   all_files = all_files + retrieve_all_items(retrieve_files_per_page)
 
 stream = "jazzhr_files"
-schema = {'properties': {
+schema = {
+  "type": "object",
+  'properties': {
     'id': {'type': 'string'},
     'applicant_id': {'type': 'string'},
     'filename': {'type': 'string'},

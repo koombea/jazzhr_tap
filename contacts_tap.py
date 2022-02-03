@@ -1,7 +1,8 @@
 from jazzhr_tap import run_jazz_tap
 
 route = "contacts"
-schema = {'properties': {
+schema = {"type": "object",
+  'properties': {
     'id': {'type': 'string'},
     'name_first': {'type': 'string'},
     'name_last': {'type': 'string'},

@@ -1,7 +1,8 @@
 from jazzhr_tap import run_jazz_tap
 
 route = "jobs"
-schema = {'properties': {
+schema = {"type": "object",
+  'properties': {
     'id': {'type': 'string'},
     'team_id': {'type': 'string'},
     'title': {'type': 'string'},

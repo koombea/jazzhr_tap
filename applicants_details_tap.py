@@ -21,7 +21,9 @@ def retrieve_jazzhr_applicant_details(id):
   api_response = requests.get(authenticated_endpoint).json()
   return api_response
 
-schema = {'properties': {
+schema = {
+  "type": "object",
+  'properties': {
     'id': {'type': 'string'},
     'first_name': {'type': 'string'},
     'last_name': {'type': 'string'},
@@ -62,9 +64,26 @@ schema = {'properties': {
     'eeoc_disability_signature': {'type': ["string", "null"]},
     'eeoc_disability_date':  { "type": ["string", "null"], "format": "date"},
     'apply_date': { "type": "string", "format": "date"},
-    "resume_body": {'type': 'string'}
+    "resume_body": {'type': 'string'},
+     "activities": {
+      "type": [ "null", "array" ],
+      "items": {
+        "$ref": "#/definitions/activity"
+      }
+    }
+    },
+    "definitions": {
+      "activity": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string"},
+        "activity": { "type": [ "string", "null" ]},
+        'date':  { "type": ["string", "null"], "format": "date"},
+        'time':  { "type": ["string", "null"], "format": "time"}
+      }
     }
   }
+}
 singer.write_schema(stream_name="jazzhr_applicants_details", schema=schema, key_properties=["id"])
 applicants = []
 pursue=True
@@ -75,5 +94,7 @@ while pursue:
     if len(response)<100 : pursue=False
 for applicant_ in applicants:
   applicant = retrieve_jazzhr_applicant_details(applicant_)
+  
+  if type(applicant["activities"])!=list: applicant["activities"]=[applicant["activities"]] 
   singer.write_record(stream_name="jazzhr_applicants_details",  
   record=applicant)

@@ -1,7 +1,8 @@
 from jazzhr_tap import run_jazz_tap
 
 route = "categories2applicants"
-schema = {'properties': {
+schema = {"type": "object",
+  'properties': {
     'id': {'type': 'string'},
     'applicant_id': {'type': 'string'},
     'category_id': {'type': 'string'}

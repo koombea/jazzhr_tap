@@ -1,7 +1,8 @@
 from jazzhr_tap import run_jazz_tap
 
 route = "questionnaire_answers"
-schema = {'properties': {
+schema = {"type": "object",
+  'properties': {
     'job_id': {'type': ["string", "null"]},
     'applicant_id': {'type': 'string'},
     'questionnaire_id': {'type': 'string'},
