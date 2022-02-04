@@ -3,7 +3,9 @@ import requests
 import os
 from os.path import join, dirname
 from dotenv import load_dotenv
+import json
 
+json_schema = open('./schemas/questionnaire_questions.json')
 dotenv_path = join(dirname(__file__), '.env')
 load_dotenv(dotenv_path)
 JAZZHR_KEY = os.environ.get("jazzhr_key")
@@ -41,20 +43,7 @@ for q in list_questionnaires:
   all_questions = all_questions + retrieve_questionnaire_questions(q)
 
 stream = "jazzhr_questionnaire_questions"
-schema = {"type": "object",
-  'properties': {
-    'questionnaire_id': {'type': 'string'},
-    'questionnaire_code': {'type': 'string'},
-    'question_text': {'type': 'string'},
-    'question_answers': {'type': 'string'},
-    'question_format': {'type': 'string'},
-    'question_order': {'type': 'integer'},
-    'question_mandatory': {'type': 'boolean'},
-    'question_correct_answer': {'type': 'string'},
-    'question_status': {'type': 'string'}
-    }
-  }
-
+schema = json.load(json_schema)
 singer.write_schema(stream_name=stream, schema=schema, key_properties=["questionnaire_id", "question_order"])
 
 for question in all_questions:

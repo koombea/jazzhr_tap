@@ -1,17 +1,9 @@
 from jazzhr_tap import run_jazz_tap
+import json
 
+json_schema = open('./schemas/hires.json')
 route = "hires"
-schema = {"type": "object",
-  'properties': {
-    'id': {'type': 'string'},
-    'applicant_id': {'type': 'string'},
-    'job_id': {'type': 'string'},
-    'workflow_step_id': {'type': 'string'},
-    'workflow_step_name': {'type': 'string'},
-    'hired_date': { "type": "string", "format": "date"},
-    'hired_time': { "type": "string", "format": "time"}
-    }
-  }
+schema = json.load(json_schema)
 stream = "jazzhr_hires"
 key_properties=["id"]
 def read_record(item):

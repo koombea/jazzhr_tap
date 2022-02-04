@@ -1,16 +1,9 @@
 from jazzhr_tap import run_jazz_tap
+import json
 
+json_schema = open('./schemas/applicants2jobs.json')
 route = "applicants2jobs"
-schema = {"type": "object",
-  'properties': {
-    'id': {'type': 'string'},
-    'applicant_id': {'type': 'string'},
-    'job_id': {'type': 'string'},
-    'rating': {'type': 'integer'},
-    'workflow_step_id': { "type": "string"},
-    'date': { "type": "string", "format": "date"}
-    }
-  }
+schema = json.load(json_schema)
 stream = "jazzhr_applicants2jobs"
 def read_record(item):
   item["rating"] = int(item["rating"])

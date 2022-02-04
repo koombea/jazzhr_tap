@@ -1,30 +1,9 @@
 from jazzhr_tap import run_jazz_tap
+import json
 
+json_schema = open('./schemas/contacts.json')
 route = "contacts"
-schema = {"type": "object",
-  'properties': {
-    'id': {'type': 'string'},
-    'name_first': {'type': 'string'},
-    'name_last': {'type': 'string'},
-    'email': {'type': 'string'},
-    'title': {'type': 'string'},
-    'company_name': {'type': 'string'},
-    'address': {'type': 'string'},
-    'city': {'type': 'string'},
-    'state': {'type': 'string'},
-    'postal': {'type': 'string'},
-    'phone_work': {'type': 'string'},
-    'phone_mobile': {'type': 'string'},
-    'phone_other': {'type': 'string'},
-    'fax': {'type': 'string'},
-    'twitter': {'type': 'string'},
-    'notes': {'type': 'string'},
-    'owner': {'type': 'string'},
-    'date_created': { "type": "string", "format": "date"},
-    'date_edited': { "type": "string", "format": "date"},
-    'date_login': { "type": "string", "format": "date"}
-    }
-  }
+schema = json.load(json_schema)
 stream = "jazzhr_contacts"
 key_properties=["id"]
 def read_record(item):

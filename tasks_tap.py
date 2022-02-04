@@ -1,23 +1,9 @@
 from jazzhr_tap import run_jazz_tap
+import json
 
+json_schema = open('./schemas/tasks.json')
 route = "tasks"
-schema = {"type": "object",
-  'properties': {
-    'id': {'type': 'string'},
-    'object_id': {'type': 'string'},
-    'owner_id': {'type': 'string'},
-    'opener_name': {'type': 'string'},
-    'assignee_id': {'type': 'string'},
-    'assignee_name': {'type': 'string'},
-    'status': {'type': 'string'},
-    'description': {'type': 'string'},
-    'notes': {'type': 'string'},
-    'date_due': { "type": "string", "format": "date"},
-    'due_whenever': {'type': 'boolean'},
-    'date_created': { "type": "string", "format": "date"},
-    'time_created': { "type": "string", "format": "time"}
-    }
-  }
+schema = json.load(json_schema)
 stream = "jazzhr_tasks"
 key_properties=["id"]
 def read_record(item):

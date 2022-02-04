@@ -1,0 +1,15 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {"type": "string"},
+    "applicant_id": {"type": "string"},
+    "filename": {"type": "string"},
+    "mime_type": {"type": "string"},
+    "user_id": {"type": ["string", "null"]},
+    "file_privacy": {"type": "string"},
+    "file_size": {"type": "integer"},
+    "date_loaded": {"type": "string", "format": "date"},
+    "time_loaded": {"type": "string", "format": "time"},
+    "file_url": {"type": "string"}
+    }
+  }

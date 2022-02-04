@@ -1,16 +1,9 @@
 from jazzhr_tap import run_jazz_tap
+import json
 
+json_schema = open('./schemas/questionnaire_answers.json')
 route = "questionnaire_answers"
-schema = {"type": "object",
-  'properties': {
-    'job_id': {'type': ["string", "null"]},
-    'applicant_id': {'type': 'string'},
-    'questionnaire_id': {'type': 'string'},
-    'questionnaire_code': {'type': 'string'},
-    'date_taken': { "type": "string", "format": "date"},
-    'time_taken': { "type": "string", "format": "time"}
-    }
-  }
+schema = json.load(json_schema)
 for i in range(1,21):
   key = '0'+str(i) if i<10 else str(i)  
   schema['properties']["answer_value_"+key] = {'type': ["string", "null"]}

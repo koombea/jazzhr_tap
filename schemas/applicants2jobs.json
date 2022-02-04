@@ -1,0 +1,10 @@
+{"type": "object",
+  "properties": {
+    "id": {"type": "string"},
+    "applicant_id": {"type": "string"},
+    "job_id": {"type": "string"},
+    "rating": {"type": "integer"},
+    "workflow_step_id": { "type": "string"},
+    "date": { "type": "string", "format": "date"}
+    }
+  }

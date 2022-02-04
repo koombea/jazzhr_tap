@@ -1,0 +1,10 @@
+{"type": "object",
+  "properties": {
+    "job_id": {"type": ["string", "null"]},
+    "applicant_id": {"type": "string"},
+    "questionnaire_id": {"type": "string"},
+    "questionnaire_code": {"type": "string"},
+    "date_taken": { "type": "string", "format": "date"},
+    "time_taken": { "type": "string", "format": "time"}
+    }
+  }

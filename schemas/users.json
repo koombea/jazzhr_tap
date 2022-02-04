@@ -1,0 +1,10 @@
+{"type": "object",
+  "properties": {
+    "id": {"type": "string"},
+    "type": {"type": "string"},
+    "last_name": {"type": "string"},
+    "first_name": {"type": "string"},
+    "date_created": { "type": "string", "format": "date"},
+    "email": {"type": "string"}
+    }
+  }

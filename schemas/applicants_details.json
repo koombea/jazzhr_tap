@@ -1,0 +1,161 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {"type": "string"},
+    "first_name": {"type": "string"},
+    "last_name": {"type": "string"},
+    "email": {"type": "string"},
+    "address": {"type": "string"},
+    "location": {"type": "string"},
+    "linkedin_url": {"type": "string"},
+    "eeo_gender": {"type": ["string", "null"]},
+    "eeo_race": {"type": ["string", "null"]},
+    "eeo_disability": {"type": ["string", "null"]},
+    "website": {"type": "string"},
+    "desired_salary": {"type": "string"},
+    "desired_start_date": { "type": "string", "format": "date"},
+    "referrer": {"type": "string"},
+    "languages": {"type": "string"},
+    "wmyu": {"type": "string"},
+    "has_driver_license": {"type": "string"},
+    "willing_to_relocate": {"type": "string"},
+    "citizenship_status": {"type": "string"},
+    "education_level": {"type": "string"},
+    "has_cdl": {"type": "string"},
+    "over_18": {"type": "string"},
+    "can_work_weekends": {"type": "string"},
+    "can_work_evenings": {"type": "string"},
+    "can_work_overtime": {"type": "string"},
+    "has_felony": {"type": "string"},
+    "felony_explanation": {"type": "string"},
+    "twitter_username": {"type": "string"},
+    "college_gpa": {"type": "string"},
+    "college": {"type": "string"},
+    "references": {"type": "string"},
+    "notes": {"type": "string"},
+    "comments_count": {"type": "string"},
+    "source": {"type": "string"},
+    "recruiter_id": {"type": "string"},
+    "eeoc_veteran": {"type": ["string", "null"]},
+    "eeoc_disability": {"type": ["string", "null"]},
+    "eeoc_disability_signature": {"type": ["string", "null"]},
+    "eeoc_disability_date":  { "type": ["string", "null"], "format": "date"},
+    "apply_date": { "type": "string", "format": "date"},
+    "resume_body": {"type": "string"},
+     "activities": {
+      "type": [ "null", "array" ],
+      "items": {
+        "$ref": "#/definitions/activity"
+      }
+    },
+    "jobs": {
+      "type": [ "null", "array" ],
+      "items": {
+        "$ref": "#/definitions/job"
+      }
+    },
+    "feedback": {
+      "type": [ "null", "array" ],
+      "items": {
+        "$ref": "#/definitions/feedback"
+      }
+    },
+    "messages": {
+      "type": [ "null", "array" ],
+      "items": {
+        "$ref": "#/definitions/message"
+      }
+    },
+    "questionnaire": {
+      "type": [ "null", "array" ],
+      "items": {
+        "$ref": "#/definitions/questionnaire"
+      }
+    },
+    "evaluation": {
+      "type": [ "null", "array" ],
+      "items": {
+        "$ref": "#/definitions/evaluation"
+      }
+    },
+    "categories": {
+      "type": [ "null", "array" ],
+      "items": {
+        "$ref": "#/definitions/category"
+      }
+    }
+    },
+    "definitions": {
+      "activity": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string"},
+          "activity": { "type": [ "string", "null" ]},
+          "date":  { "type": "string", "format": "date"},
+          "time":  { "type": "string", "format": "time"}
+      }
+    },
+    "job": {
+        "type": "object",
+        "properties": {
+          "job_id": { "type": "string"},
+          "hiring_lead_rating": { "type": "integer"},
+          "average_rating": { "type": "number"},
+          "workflow_step_id": { "type": ["string", "null"]},
+          "job_title": { "type": "string"},
+          "applicant_progress": { "type": "string"}
+      }
+    },
+    "feedback": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string"},
+          "author_id": { "type": "string"},
+          "text": { "type": "string"},
+          "date": { "type": "string", "format": "date"},
+          "time": { "type": "string", "format": "time"},
+          "privacy": { "type": "string"},
+          "is_external": { "type": "string"}
+      }
+    },
+    "message": {
+        "type": "object",
+        "properties": {
+          "comm_id": { "type": "string"},
+          "comm_subject": { "type": "string"},
+          "comm_text": { "type": "string"},
+          "comm_author_email": { "type": "string"},
+          "comm_to": { "type": "string"},
+          "comm_cc": { "type": "string"},
+          "comm_bcc": { "type": "string"},
+          "comm_datetime_sent": { "type": "string", "format": "datetime"}
+      }
+    },
+    "questionnaire": {
+        "type": "object",
+        "properties": {
+          "question": { "type": "string"},
+          "answer": { "type": "string"}
+      }
+    },
+    "evaluation": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string"},
+          "name": { "type": "string"},
+          "category": { "type": "string"},
+          "rating": { "type": "integer"},
+          "comment": { "type": "string"}
+      }
+    },
+    "category": {
+        "type": "object",
+        "properties": {
+          "category_id": { "type": "string"},
+          "name": { "type": "string"},
+          "date_created": { "type": "string", "format": "date"},
+          "status": { "type": "string"}
+      }
+    }
+  }
+}

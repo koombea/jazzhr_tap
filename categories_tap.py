@@ -1,15 +1,9 @@
 from jazzhr_tap import run_jazz_tap
+import json
 
+json_schema = open('./schemas/categories.json')
 route = "categories"
-schema = {"type": "object",
-  'properties': {
-    'id': {'type': 'string'},
-    'name': {'type': 'string'},
-    'status': {'type': 'string'},
-    'created_by': {'type': 'string'},
-    'date_created': { "type": "string", "format": "date"}
-    }
-  }
+schema = json.load(json_schema)
 stream = "jazzhr_categories"
 key_properties=["id"]
 def read_record(item):

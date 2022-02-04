@@ -1,0 +1,12 @@
+{
+  "type": "object",
+    "properties": {
+      "id": {"type": "string"},
+      "first_name": {"type": "string"},
+      "last_name": {"type": "string"},
+      "prospect_phone": {"type": "string"},
+      "apply_date": { "type": "string", "format": "date"},
+      "job_id": {"type": "string"},
+      "job_title": {"type": "string"}
+    }
+}

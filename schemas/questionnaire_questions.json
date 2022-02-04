@@ -1,0 +1,13 @@
+{"type": "object",
+  "properties": {
+    "questionnaire_id": {"type": "string"},
+    "questionnaire_code": {"type": "string"},
+    "question_text": {"type": "string"},
+    "question_answers": {"type": "string"},
+    "question_format": {"type": "string"},
+    "question_order": {"type": "integer"},
+    "question_mandatory": {"type": "boolean"},
+    "question_correct_answer": {"type": "string"},
+    "question_status": {"type": "string"}
+    }
+  }

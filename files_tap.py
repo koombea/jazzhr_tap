@@ -3,7 +3,9 @@ import requests
 import os
 from os.path import join, dirname
 from dotenv import load_dotenv
+import json
 
+json_schema = open('./schemas/files.json')
 dotenv_path = join(dirname(__file__), '.env')
 load_dotenv(dotenv_path)
 JAZZHR_KEY = os.environ.get("jazzhr_key")
@@ -46,21 +48,7 @@ for a in applicants:
   all_files = all_files + retrieve_all_items(retrieve_files_per_page)
 
 stream = "jazzhr_files"
-schema = {
-  "type": "object",
-  'properties': {
-    'id': {'type': 'string'},
-    'applicant_id': {'type': 'string'},
-    'filename': {'type': 'string'},
-    'mime_type': {'type': 'string'},
-    'user_id': {'type': ['string', 'null']},
-    'file_privacy': {'type': 'string'},
-    'file_size': {'type': 'integer'},
-    'date_loaded': {"type": "string", "format": "date"},
-    'time_loaded': {"type": "string", "format": "time"},
-    'file_url': {'type': 'string'}
-    }
-  }
+schema = json.load(json_schema)
 
 singer.write_schema(stream_name=stream, schema=schema, key_properties=["id"])
 
