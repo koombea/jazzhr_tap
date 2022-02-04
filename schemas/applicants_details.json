@@ -83,6 +83,12 @@
       "items": {
         "$ref": "#/definitions/category"
       }
+    },
+    "comments": {
+      "type": [ "null", "array" ],
+      "items": {
+        "$ref": "#/definitions/comment"
+      }
     }
     },
     "definitions": {
@@ -155,6 +161,16 @@
           "name": { "type": "string"},
           "date_created": { "type": "string", "format": "date"},
           "status": { "type": "string"}
+      }
+    },
+    "comment": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string"},
+          "author_name": { "type": "string"},
+          "text": { "type": "string"},
+          "date": { "type": "string", "format": "date"},
+          "time": { "type": "string", "format": "time"}   
       }
     }
   }

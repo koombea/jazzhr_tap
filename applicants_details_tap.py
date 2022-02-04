@@ -35,19 +35,15 @@ while pursue:
     applicants = applicants + response
     page = page +1
     if len(response)<100 : pursue=False
+lists=["activities", "jobs", "feedback", "messages", "questionnaire", "evaluation", "categories", "comments"]
 for applicant_ in applicants:
   applicant = retrieve_jazzhr_applicant_details(applicant_)
-  if type(applicant["activities"])!=list: applicant["activities"]=[applicant["activities"]] 
-  if type(applicant["jobs"])!=list: applicant["jobs"]=[applicant["jobs"]] 
+  for lst in lists:
+    if type(applicant[lst])!=list: applicant[lst]=[applicant[lst]] 
   for i in range(len(applicant["jobs"])):
     applicant["jobs"][i]["hiring_lead_rating"]=int(applicant["jobs"][i]["hiring_lead_rating"])
-    applicant["jobs"][i]["average_rating"]=float(applicant["jobs"][i]["average_rating"])
-  if type(applicant["feedback"])!=list: applicant["feedback"]=[applicant["feedback"]]
-  if type(applicant["messages"])!=list: applicant["messages"]=[applicant["messages"]]
-  if type(applicant["questionnaire"])!=list: applicant["questionnaire"]=[applicant["questionnaire"]] 
-  if type(applicant["evaluation"])!=list: applicant["evaluation"]=[applicant["evaluation"]] 
+    applicant["jobs"][i]["average_rating"]=float(applicant["jobs"][i]["average_rating"]) 
   for i in range(len(applicant["evaluation"])):
     applicant["evaluation"][i]["rating"]=int(applicant["evaluation"][i]["rating"])
-  if type(applicant["categories"])!=list: applicant["categories"]=[applicant["categories"]] 
   singer.write_record(stream_name="jazzhr_applicants_details",  
   record=applicant)
