@@ -5,7 +5,11 @@ json_schema = open('./schemas/categories.json')
 route = "categories"
 schema = json.load(json_schema)
 stream = "jazzhr_categories"
-key_properties=["id"]
+key_properties = ["id"]
+
+
 def read_record(item):
   return item
+
+
 run_jazz_tap(route, schema, stream, read_record, key_properties)

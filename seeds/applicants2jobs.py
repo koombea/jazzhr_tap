@@ -1,4 +1,4 @@
 from candidates import create_candidates
 
-items_to_create=5
+items_to_create = 5
 create_candidates(items_to_create)
