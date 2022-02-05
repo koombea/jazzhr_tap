@@ -1,11 +1,11 @@
+import json
 import singer
 import requests
 import os
 from os.path import join, dirname
 from dotenv import load_dotenv
-import json
-
-json_schema = open('./schemas/files.json')
+with open('./schemas/files.json', encoding='utf-8') as json_schema:
+  schema = json.load(json_schema)
 dotenv_path = join(dirname(__file__), '.env')
 load_dotenv(dotenv_path)
 JAZZHR_KEY = os.environ.get("jazzhr_key")
@@ -15,23 +15,23 @@ endpoint = "https://api.resumatorapi.com/v1/"
 
 
 def retrieve_applicants_per_page(page):
-  authenticated_endpoint = "{}applicants/page/{}?apikey={}".format(
-    endpoint, page, JAZZHR_KEY)
+  authenticated_endpoint = f"{endpoint}applicants/page/{page}?apikey={JAZZHR_KEY}"
   api_response = requests.get(authenticated_endpoint).json()
-  # next line is necessary because when only one element the response is not a list but the only object
-  if type(api_response) != list:
+  # next line is necessary because when only one element the response is not
+  # a list but the only object
+  if not isinstance(api_response, list):
     api_response = [api_response]
   return list(map(lambda d: d["id"], api_response))
 
 
 def retrieve_files_per_page(page):
   global current_applicant
-  authenticated_endpoint = "{}files/applicant_id/{}/page/{}".format(
-    endpoint, current_applicant, page)
+  authenticated_endpoint = f"{endpoint}files/applicant_id/{current_applicant}/page/{page}"
   file_data = {"apikey": JAZZHR_KEY}
   api_response = requests.get(authenticated_endpoint, json=file_data).json()
-  # next line is necessary because when only one element the response is not a list but the only object
-  if type(api_response) != list:
+  # next line is necessary because when only one element the response is not
+  # a list but the only object
+  if not isinstance(api_response, list):
     api_response = [api_response]
   return api_response
 
@@ -57,7 +57,6 @@ for a in applicants:
   all_files = all_files + retrieve_all_items(retrieve_files_per_page)
 
 stream = "jazzhr_files"
-schema = json.load(json_schema)
 
 singer.write_schema(stream_name=stream, schema=schema, key_properties=["id"])
 

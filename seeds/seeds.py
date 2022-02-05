@@ -16,23 +16,28 @@ endpoint = "https://api.resumatorapi.com/v1/"
 
 
 def retrieve_jazzhr_jobs_per_page(page):
-  authenticated_endpoint = "{}jobs/page/{}?apikey={}".format(
-    endpoint, page, JAZZHR_KEY)
+  authenticated_endpoint = f"{endpoint}jobs/page/{page}?apikey={JAZZHR_KEY}"
   api_response = requests.get(authenticated_endpoint).json()
   return list(map(lambda r: r["title"], api_response))
 
 
 def retrieve_jazzhr_applicants_per_page(page):
-  authenticated_endpoint = "{}applicants/page/{}?apikey={}".format(
-    endpoint, page, JAZZHR_KEY)
+  authenticated_endpoint = f"{endpoint}applicants/page/{page}?apikey={JAZZHR_KEY}"
   api_response = requests.get(authenticated_endpoint).json()
 
-  return list(map(lambda r: {"first_name": r["first_name"], "last_name": r["last_name"], "id": r["id"], "email": retrieve_applicant_email(r["id"])}, api_response))
+  return list(
+    map(
+      lambda r: {
+        "first_name": r["first_name"],
+        "last_name": r["last_name"],
+        "id": r["id"],
+        "email": retrieve_applicant_email(
+          r["id"])},
+      api_response))
 
 
 def retrieve_applicant_email(id):
-  authenticated_endpoint = "{}applicants/{}?apikey={}".format(
-    endpoint, id, JAZZHR_KEY)
+  authenticated_endpoint = f"{endpoint}applicants/{id}?apikey={JAZZHR_KEY}"
   api_response = requests.get(authenticated_endpoint).json()
   return api_response["email"]
 
@@ -64,13 +69,13 @@ def retrieve_applicants():
 
 
 def post_jazzhr_job(job_data):
-  authenticated_endpoint = "{}jobs".format(endpoint)
+  authenticated_endpoint = f"{endpoint}jobs"
   api_response = requests.post(authenticated_endpoint, json=job_data).json()
   return api_response
 
 
 def post_jazzhr_applicant(applicant_data):
-  authenticated_endpoint = "{}applicants".format(endpoint)
+  authenticated_endpoint = f"{endpoint}applicants"
   api_response = requests.post(
     authenticated_endpoint, json=applicant_data).json()
   return api_response
@@ -82,7 +87,7 @@ def post_jazzhr_applicants2job(applicant_id, job_id):
     "job_id": job_id,
     "apikey": JAZZHR_KEY
   }
-  authenticated_endpoint = "{}applicants2jobs".format(endpoint)
+  authenticated_endpoint = f"{endpoint}applicants2jobs"
   api_response = requests.post(
     authenticated_endpoint, json=applicants2job_data).json()
   return api_response['appjob_id']
@@ -109,12 +114,12 @@ while i < 5:
   invalid = any(current_job == job_data['title']
                 for current_job in current_jobs)
   if invalid:
-    i = i-1
+    i = i - 1
   else:
     response = post_jazzhr_job(job_data)
     print(response)
     jobs.append(response['job_id'])
-  i = i+1
+  i = i + 1
 j = 0
 while j < 75:
   applicant_data = {
@@ -129,12 +134,12 @@ while j < 75:
     or (current_applicant['email'] == applicant_data['email'])
     for current_applicant in current_applicants)
   if invalid:
-    j = j-1
+    j = j - 1
   else:
     response = post_jazzhr_applicant(applicant_data)
     print(response)
     applicants.append(response['prospect_id'])
-  j = j+1
+  j = j + 1
 
 for applicant in applicants:
   some_jobs = random.sample(jobs, np.random.randint(0, 4))

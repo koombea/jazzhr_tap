@@ -16,11 +16,11 @@ endpoint = "https://api.resumatorapi.com/v1/"
 
 
 def retrieve_items_per_page(resource, page):
-  authenticated_endpoint = "{}{}/page/{}?apikey={}".format(
-    endpoint, resource, page, JAZZHR_KEY)
+  authenticated_endpoint = f"{endpoint}{resource}/page/{page}?apikey={JAZZHR_KEY}"
   api_response = requests.get(authenticated_endpoint).json()
-  # next line is necessary because when only one element the response is not a list but the only object
-  if type(api_response) != list:
+  # next line is necessary because when only one element the response is not
+  # a list but the only object
+  if not isinstance(api_response, list):
     api_response = [api_response]
   return api_response
 
@@ -39,7 +39,7 @@ def retrieve_all_items(resource):
 
 
 def post_jazzhr_questionnaire_answers(category_data):
-  authenticated_endpoint = "{}questionnaire_answers".format(endpoint)
+  authenticated_endpoint = f"{endpoint}questionnaire_answers"
   api_response = requests.post(
     authenticated_endpoint, json=category_data).json()
   return api_response
@@ -52,11 +52,14 @@ new_categories = []
 i = 0
 while i < 10:  # this number defines how many new items will be created
   a2j = random.choice(current_a2j_list)
-  random_questionnaire = random.choice(["questionnaire_20220126195522_QD6FSWHN56OSJEXK",
-                                       "questionnaire_20220127003308_JDFZN564QK5XEHVQ", "questionnaire_20220120171318_UTSVJTUEUGUKPLIK"])
+  random_questionnaire = random.choice(
+    [
+      "questionnaire_20220126195522_QD6FSWHN56OSJEXK",
+      "questionnaire_20220127003308_JDFZN564QK5XEHVQ",
+      "questionnaire_20220120171318_UTSVJTUEUGUKPLIK"])
   invalid = any(current_qa["applicant_id"] == a2j['applicant_id'] and current_qa["job_id"] == a2j['job_id']
                 and current_qa["questionnaire_id"] == random_questionnaire for current_qa in current_qa_list)
-  if invalid == False:
+  if not invalid:
     qa_data = {
       "applicant_id": a2j["applicant_id"],
       "questionnaire_id": random_questionnaire,
@@ -70,4 +73,4 @@ while i < 10:  # this number defines how many new items will be created
     response = post_jazzhr_questionnaire_answers(qa_data)
     print(response)
     current_qa_list.append(qa_data)
-    i = i+1
+    i = i + 1

@@ -6,7 +6,7 @@ import requests
 import os
 from os.path import join, dirname
 from dotenv import load_dotenv
-alphabet = list(string.ascii_lowercase)+list(string.ascii_uppercase)
+alphabet = list(string.ascii_lowercase) + list(string.ascii_uppercase)
 fake = Faker()
 
 dotenv_path = join(dirname(__file__), '../.env')
@@ -17,11 +17,11 @@ endpoint = "https://api.resumatorapi.com/v1/"
 
 
 def retrieve_items_per_page(resource, page):
-  authenticated_endpoint = "{}{}/page/{}?apikey={}".format(
-    endpoint, resource, page, JAZZHR_KEY)
+  authenticated_endpoint = f"{endpoint}{resource}/page/{page}?apikey={JAZZHR_KEY}"
   api_response = requests.get(authenticated_endpoint).json()
-  # next line is necessary because when only one element the response is not a list but the only object
-  if type(api_response) != list:
+  # next line is necessary because when only one element the response is not
+  # a list but the only object
+  if not isinstance(api_response, list):
     api_response = [api_response]
   return api_response
 
@@ -40,7 +40,7 @@ def retrieve_all_items(resource):
 
 
 def post_jazzhr_files(file_data):
-  authenticated_endpoint = "{}files".format(endpoint)
+  authenticated_endpoint = f"{endpoint}files"
   api_response = requests.post(authenticated_endpoint, json=file_data).json()
   return api_response
 
@@ -63,4 +63,4 @@ while i < 10:  # this number defines how many new items will be created
   response = post_jazzhr_files(file_data)
   print(file_data)
   print(response)
-  i = i+1
+  i = i + 1

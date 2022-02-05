@@ -1,9 +1,8 @@
-from jazzhr_tap import run_jazz_tap
 import json
-
-json_schema = open('./schemas/contacts.json')
+from jazzhr_tap import run_jazz_tap
+with open('./schemas/contacts.json', encoding='utf-8') as json_schema:
+  schema = json.load(json_schema)
 route = "contacts"
-schema = json.load(json_schema)
 stream = "jazzhr_contacts"
 key_properties = ["id"]
 

@@ -1,9 +1,8 @@
-from jazzhr_tap import run_jazz_tap
 import json
-
-json_schema = open('./schemas/applicants2jobs.json')
+from jazzhr_tap import run_jazz_tap
+with open('./schemas/applicants2jobs.json', encoding='utf-8') as json_schema:
+  schema = json.load(json_schema)
 route = "applicants2jobs"
-schema = json.load(json_schema)
 stream = "jazzhr_applicants2jobs"
 
 

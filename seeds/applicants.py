@@ -14,17 +14,23 @@ endpoint = "https://api.resumatorapi.com/v1/"
 
 
 def retrieve_jazzhr_applicants_per_page(page):
-  authenticated_endpoint = "{}applicants/page/{}?apikey={}".format(
-    endpoint, page, JAZZHR_KEY)
+  authenticated_endpoint = f"{endpoint}applicants/page/{page}?apikey={JAZZHR_KEY}"
   api_response = requests.get(authenticated_endpoint).json()
-  if type(api_response) != list:
+  if not isinstance(api_response, list):
     api_response = [api_response]
-  return list(map(lambda r: {"first_name": r["first_name"], "last_name": r["last_name"], "id": r["id"], "email": retrieve_applicant_email(r["id"])}, api_response))
+  return list(
+    map(
+      lambda r: {
+        "first_name": r["first_name"],
+        "last_name": r["last_name"],
+        "id": r["id"],
+        "email": retrieve_applicant_email(
+          r["id"])},
+      api_response))
 
 
 def retrieve_applicant_email(id):
-  authenticated_endpoint = "{}applicants/{}?apikey={}".format(
-    endpoint, id, JAZZHR_KEY)
+  authenticated_endpoint = f"{endpoint}applicants/{id}?apikey={JAZZHR_KEY}"
   api_response = requests.get(authenticated_endpoint).json()
   return api_response["email"]
 
@@ -43,7 +49,7 @@ def retrieve_applicants():
 
 
 def post_jazzhr_applicant(applicant_data):
-  authenticated_endpoint = "{}applicants".format(endpoint)
+  authenticated_endpoint = f"{endpoint}applicants"
   api_response = requests.post(
     authenticated_endpoint, json=applicant_data).json()
   return api_response
@@ -63,8 +69,8 @@ while j < 10:
      and current_applicant['last_name'] == applicant_data['last_name'])
     or (current_applicant['email'] == applicant_data['email'])
     for current_applicant in current_applicants)
-  if invalid == False:
+  if not invalid:
     response = post_jazzhr_applicant(applicant_data)
     print(response)
     current_applicants.append(applicant_data)
-    j = j+1
+    j = j + 1

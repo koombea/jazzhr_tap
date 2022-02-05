@@ -16,10 +16,9 @@ endpoint = "https://api.resumatorapi.com/v1/"
 
 
 def retrieve_jazzhr_jobs_per_page(page):
-  authenticated_endpoint = "{}jobs/page/{}?apikey={}".format(
-    endpoint, page, JAZZHR_KEY)
+  authenticated_endpoint = f"{endpoint}jobs/page/{page}?apikey={JAZZHR_KEY}"
   api_response = requests.get(authenticated_endpoint).json()
-  if type(api_response) != list:
+  if not isinstance(api_response, list):
     api_response = [api_response]
   return list(map(lambda r: r["title"], api_response))
 
@@ -38,7 +37,7 @@ def retrieve_all_jobs():
 
 
 def post_jazzhr_job(job_data):
-  authenticated_endpoint = "{}jobs".format(endpoint)
+  authenticated_endpoint = f"{endpoint}jobs"
   api_response = requests.post(authenticated_endpoint, json=job_data).json()
   return api_response
 
@@ -60,8 +59,8 @@ while i < 5:
   }
   invalid = any(current_job == job_data['title']
                 for current_job in current_jobs)
-  if invalid == False:
+  if not invalid:
     response = post_jazzhr_job(job_data)
     print(response)
     current_jobs.append(job_data['title'])
-    i = i+1
+    i = i + 1

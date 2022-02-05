@@ -1,11 +1,12 @@
+import json
 import singer
 import requests
 import os
 from os.path import join, dirname
 from dotenv import load_dotenv
-import json
 
-json_schema = open('./schemas/questionnaire_questions.json')
+with open('./schemas/questionnaire_questions.json', encoding='utf-8') as json_schema:
+  schema = json.load(json_schema)
 dotenv_path = join(dirname(__file__), '.env')
 load_dotenv(dotenv_path)
 JAZZHR_KEY = os.environ.get("jazzhr_key")
@@ -14,11 +15,11 @@ endpoint = "https://api.resumatorapi.com/v1/"
 
 
 def retrieve_questionnaires_per_page(page):
-  authenticated_endpoint = "{}questionnaire_answers/page/{}?apikey={}".format(
-    endpoint, page, JAZZHR_KEY)
+  authenticated_endpoint = f"{endpoint}questionnaire_answers/page/{page}?apikey={JAZZHR_KEY}"
   api_response = requests.get(authenticated_endpoint).json()
-  # next line is necessary because when only one element the response is not a list but the only object
-  if type(api_response) != list:
+  # next line is necessary because when only one element the response is not
+  # a list but the only object
+  if not isinstance(api_response, list):
     api_response = [api_response]
   return list(map(lambda d: d["questionnaire_id"], api_response))
 
@@ -37,10 +38,9 @@ def retrieve_all_questionnaires():
 
 
 def retrieve_questionnaire_questions(questionnaire_id):
-  authenticated_endpoint = "{}questionnaire_questions/questionnaire_id/{}?apikey={}".format(
-    endpoint, questionnaire_id, JAZZHR_KEY)
+  authenticated_endpoint = f"{endpoint}questionnaire_questions/questionnaire_id/{questionnaire_id}?apikey={JAZZHR_KEY}"
   api_response = requests.get(authenticated_endpoint).json()
-  if type(api_response) != list:
+  if not isinstance(api_response, list):
     api_response = [api_response]
   return api_response
 
@@ -52,7 +52,6 @@ for q in list_questionnaires:
   all_questions = all_questions + retrieve_questionnaire_questions(q)
 
 stream = "jazzhr_questionnaire_questions"
-schema = json.load(json_schema)
 singer.write_schema(stream_name=stream, schema=schema, key_properties=[
                     "questionnaire_id", "question_order"])
 

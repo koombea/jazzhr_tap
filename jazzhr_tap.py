@@ -13,8 +13,7 @@ def run_jazz_tap(route, schema, stream, read_record, key_properties):
   page = 1
 
   def retrieve_jazzhr():
-    authenticated_endpoint = "{}{}/page/{}?apikey={}".format(
-      endpoint, route, page, JAZZHR_KEY)
+    authenticated_endpoint = f"{endpoint}{route}/page/{page}?apikey={JAZZHR_KEY}"
     api_response = requests.get(authenticated_endpoint).json()
     return api_response
 
