@@ -1,9 +1,8 @@
-from faker import Faker
-import numpy as np
 import random
-import requests
 import os
 from os.path import join, dirname
+from faker import Faker
+import requests
 from dotenv import load_dotenv
 
 fake = Faker()
@@ -18,12 +17,10 @@ endpoint = "https://api.resumatorapi.com/v1/"
 def retrieve_records_per_page(resource, page, only_id):
   authenticated_endpoint = f"{endpoint}{resource}/page/{page}?apikey={JAZZHR_KEY}"
   api_response = requests.get(authenticated_endpoint).json()
-  # next line is necessary because when only one element the response is not
-  # a list but the only object
   if not isinstance(api_response, list):
     api_response = [api_response]
   if only_id:
-    return list(map(lambda r: r["id"], api_response))
+    return [r["id"] for r in api_response]
   return api_response
 
 
@@ -60,11 +57,10 @@ while i < 20:  # this number defines how many new items will be created
     "category_id": random.choice(current_categories),
     "apikey": JAZZHR_KEY
   }
-  # breakpoint()
   invalid = any(current_c2a['applicant_id'] == c2a_data['applicant_id'] and current_c2a['category_id']
                 == c2a_data['category_id'] for current_c2a in current_categories2applicants)
   if not invalid:
-    response = post_jazzhr_categories2applicants(c2a_data)
-    print(response)
+    response_ = post_jazzhr_categories2applicants(c2a_data)
+    print(response_)
     current_categories2applicants.append(c2a_data)
     i = i + 1

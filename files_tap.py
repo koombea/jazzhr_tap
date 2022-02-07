@@ -1,8 +1,8 @@
 import json
-import singer
-import requests
 import os
 from os.path import join, dirname
+import singer
+import requests
 from dotenv import load_dotenv
 with open('./schemas/files.json', encoding='utf-8') as json_schema:
   schema = json.load(json_schema)
@@ -21,11 +21,10 @@ def retrieve_applicants_per_page(page):
   # a list but the only object
   if not isinstance(api_response, list):
     api_response = [api_response]
-  return list(map(lambda d: d["id"], api_response))
+  return [r["id"] for r in api_response]
 
 
 def retrieve_files_per_page(page):
-  global current_applicant
   authenticated_endpoint = f"{endpoint}files/applicant_id/{current_applicant}/page/{page}"
   file_data = {"apikey": JAZZHR_KEY}
   api_response = requests.get(authenticated_endpoint, json=file_data).json()

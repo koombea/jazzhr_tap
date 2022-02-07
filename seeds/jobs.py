@@ -1,9 +1,9 @@
-from faker import Faker
-import numpy as np
 import random
-import requests
 import os
 from os.path import join, dirname
+from faker import Faker
+import numpy as np
+import requests
 from dotenv import load_dotenv
 
 fake = Faker()
@@ -20,7 +20,7 @@ def retrieve_jazzhr_jobs_per_page(page):
   api_response = requests.get(authenticated_endpoint).json()
   if not isinstance(api_response, list):
     api_response = [api_response]
-  return list(map(lambda r: r["title"], api_response))
+  return [r["title"] for r in api_response]
 
 
 def retrieve_all_jobs():
@@ -36,9 +36,9 @@ def retrieve_all_jobs():
   return jobs
 
 
-def post_jazzhr_job(job_data):
+def post_jazzhr_job(job_data_):
   authenticated_endpoint = f"{endpoint}jobs"
-  api_response = requests.post(authenticated_endpoint, json=job_data).json()
+  api_response = requests.post(authenticated_endpoint, json=job_data_).json()
   return api_response
 
 
@@ -60,7 +60,7 @@ while i < 5:
   invalid = any(current_job == job_data['title']
                 for current_job in current_jobs)
   if not invalid:
-    response = post_jazzhr_job(job_data)
-    print(response)
+    response_ = post_jazzhr_job(job_data)
+    print(response_)
     current_jobs.append(job_data['title'])
     i = i + 1

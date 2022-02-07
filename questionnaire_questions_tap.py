@@ -1,8 +1,8 @@
 import json
-import singer
-import requests
 import os
 from os.path import join, dirname
+import singer
+import requests
 from dotenv import load_dotenv
 
 with open('./schemas/questionnaire_questions.json', encoding='utf-8') as json_schema:
@@ -21,7 +21,7 @@ def retrieve_questionnaires_per_page(page):
   # a list but the only object
   if not isinstance(api_response, list):
     api_response = [api_response]
-  return list(map(lambda d: d["questionnaire_id"], api_response))
+  return [r["questionnaire_id"] for r in api_response]
 
 
 def retrieve_all_questionnaires():
@@ -56,7 +56,7 @@ singer.write_schema(stream_name=stream, schema=schema, key_properties=[
                     "questionnaire_id", "question_order"])
 
 for question in all_questions:
-  question["question_mandatory"] = True if question["question_mandatory"] == 'Yes' else False
+  question["question_mandatory"] = (question["question_mandatory"] == 'Yes')
   question["question_order"] = int(question["question_order"])
   singer.write_record(stream_name=stream,
                       record=question)

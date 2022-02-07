@@ -9,7 +9,7 @@ key_properties = ["id"]
 
 
 def read_record(item):
-  item["due_whenever"] = True if item["due_whenever"] == 'Yes' else False
+  item["due_whenever"] = (item["due_whenever"] == 'Yes')
   return item
 
 

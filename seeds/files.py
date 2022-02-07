@@ -1,10 +1,10 @@
-from faker import Faker
 import random
 import base64
 import string
-import requests
 import os
 from os.path import join, dirname
+from faker import Faker
+import requests
 from dotenv import load_dotenv
 alphabet = list(string.ascii_lowercase) + list(string.ascii_uppercase)
 fake = Faker()
@@ -19,8 +19,6 @@ endpoint = "https://api.resumatorapi.com/v1/"
 def retrieve_items_per_page(resource, page):
   authenticated_endpoint = f"{endpoint}{resource}/page/{page}?apikey={JAZZHR_KEY}"
   api_response = requests.get(authenticated_endpoint).json()
-  # next line is necessary because when only one element the response is not
-  # a list but the only object
   if not isinstance(api_response, list):
     api_response = [api_response]
   return api_response
@@ -39,9 +37,9 @@ def retrieve_all_items(resource):
   return items
 
 
-def post_jazzhr_files(file_data):
+def post_jazzhr_files(file_data_):
   authenticated_endpoint = f"{endpoint}files"
-  api_response = requests.post(authenticated_endpoint, json=file_data).json()
+  api_response = requests.post(authenticated_endpoint, json=file_data_).json()
   return api_response
 
 
@@ -60,7 +58,7 @@ while i < 10:  # this number defines how many new items will be created
     "file_privacy": random.choice([0, 30, 40]),
     "apikey": JAZZHR_KEY
   }
-  response = post_jazzhr_files(file_data)
+  response_ = post_jazzhr_files(file_data)
   print(file_data)
-  print(response)
+  print(response_)
   i = i + 1

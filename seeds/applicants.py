@@ -1,7 +1,7 @@
-from faker import Faker
-import requests
 import os
 from os.path import join, dirname
+from faker import Faker
+import requests
 from dotenv import load_dotenv
 
 fake = Faker()
@@ -18,19 +18,16 @@ def retrieve_jazzhr_applicants_per_page(page):
   api_response = requests.get(authenticated_endpoint).json()
   if not isinstance(api_response, list):
     api_response = [api_response]
-  return list(
-    map(
-      lambda r: {
-        "first_name": r["first_name"],
-        "last_name": r["last_name"],
-        "id": r["id"],
-        "email": retrieve_applicant_email(
-          r["id"])},
-      api_response))
+  return [{
+    "first_name": r["first_name"],
+    "last_name": r["last_name"],
+    "id": r["id"],
+    "email": retrieve_applicant_email(
+          r["id"])} for r in api_response]
 
 
-def retrieve_applicant_email(id):
-  authenticated_endpoint = f"{endpoint}applicants/{id}?apikey={JAZZHR_KEY}"
+def retrieve_applicant_email(id_):
+  authenticated_endpoint = f"{endpoint}applicants/{id_}?apikey={JAZZHR_KEY}"
   api_response = requests.get(authenticated_endpoint).json()
   return api_response["email"]
 
@@ -48,10 +45,10 @@ def retrieve_applicants():
   return applicants
 
 
-def post_jazzhr_applicant(applicant_data):
+def post_jazzhr_applicant(applicant_data_):
   authenticated_endpoint = f"{endpoint}applicants"
   api_response = requests.post(
-    authenticated_endpoint, json=applicant_data).json()
+    authenticated_endpoint, json=applicant_data_).json()
   return api_response
 
 
@@ -70,7 +67,7 @@ while j < 10:
     or (current_applicant['email'] == applicant_data['email'])
     for current_applicant in current_applicants)
   if not invalid:
-    response = post_jazzhr_applicant(applicant_data)
-    print(response)
+    api_response_ = post_jazzhr_applicant(applicant_data)
+    print(api_response_)
     current_applicants.append(applicant_data)
     j = j + 1
