@@ -9,6 +9,7 @@ taps = [
   "contacts",
   "files",
   "hires",
+  "jobs_details",
   "jobs",
   "questionnaire_answers",
   "questionnaire_questions",
