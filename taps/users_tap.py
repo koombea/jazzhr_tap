@@ -7,11 +7,10 @@ with open(schema_path, encoding='utf-8') as json_schema:
   schema = json.load(json_schema)
 route = "users"
 key_properties = ["id"]
-stream = "jazzhr_users"
 
 
 def read_record(item):
   return item
 
 
-run_jazz_tap(route, schema, stream, read_record, key_properties)
+run_jazz_tap(route, schema, read_record, key_properties)

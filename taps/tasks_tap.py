@@ -6,7 +6,6 @@ schema_path = join(dirname(__file__), '../schemas/tasks.json')
 with open(schema_path, encoding='utf-8') as json_schema:
   schema = json.load(json_schema)
 route = "tasks"
-stream = "jazzhr_tasks"
 key_properties = ["id"]
 
 
@@ -15,4 +14,4 @@ def read_record(item):
   return item
 
 
-run_jazz_tap(route, schema, stream, read_record, key_properties)
+run_jazz_tap(route, schema, read_record, key_properties)

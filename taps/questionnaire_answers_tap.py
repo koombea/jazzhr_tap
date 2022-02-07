@@ -24,8 +24,7 @@ def add_properties_to_schema():
 
 
 route = "questionnaire_answers"
-stream = "jazzhr_questionnaire_answers"
 key_properties = ["questionnaire_id", 'applicant_id', 'job_id']
 
 add_properties_to_schema()
-run_jazz_tap(route, schema, stream, read_record, key_properties)
+run_jazz_tap(route, schema, read_record, key_properties)

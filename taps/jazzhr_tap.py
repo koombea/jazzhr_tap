@@ -7,7 +7,8 @@ dotenv_path = join(dirname(__file__), '../.env')
 load_dotenv(dotenv_path)
 
 
-def run_jazz_tap(route, schema, stream, read_record, key_properties):
+def run_jazz_tap(route, schema, read_record, key_properties):
+  stream = "jazzhr_"+route
   JAZZHR_KEY = os.environ.get("jazzhr_key")
   endpoint = "https://api.resumatorapi.com/v1/"
   page = 1
