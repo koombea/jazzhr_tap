@@ -20,21 +20,21 @@
     "email": {
       "type": "string"
     },
-    "activities": {
+    "user_activity": {
       "type": [
         "null",
         "array"
       ],
       "items": {
-        "$ref": "#/definitions/activity"
+        "$ref": "#/definitions/user_activity"
       }
     }
   },
   "definitions": {
-    "activity": {
+    "user_activity": {
       "type": "object",
       "properties": {
-        "id": {
+        "activity_id": {
           "type": "string"
         },
         "activity": {
@@ -43,11 +43,11 @@
             "null"
           ]
         },
-        "date": {
+        "activity_date": {
           "type": "string",
           "format": "date"
         },
-        "time": {
+        "activity_time": {
           "type": "string",
           "format": "time"
         }

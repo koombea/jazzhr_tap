@@ -13,6 +13,8 @@ taps = [
   "questionnaire_answers",
   "questionnaire_questions",
   "tasks",
-  "users"]
+  "users_details",
+  "users"
+  ]
 for tap in taps:
   os.system(f'python3 taps/{tap}_tap.py | target-stitch --config config.json')
