@@ -1,0 +1,89 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "team_id": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "country_id": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "zip": {
+      "type": "string"
+    },
+    "department": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "minimum_salary": {
+      "type": "number"
+    },
+    "maximum_salary": {
+      "type": "number"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "original_open_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "type": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "send_to_job_boards": {
+      "type": "string"
+    },
+    "hiring_lead": {
+      "type": "string"
+    },
+    "board_code": {
+      "type": "string"
+    },
+    "internal_code": {
+      "type": "string"
+    },
+    "questionnaire": {
+      "type": "string"
+    },
+    "job_applicants": {
+      "type": [
+        "null",
+        "array"
+      ],
+      "items": {
+        "$ref": "#/definitions/job_applicant"
+      }
+    }
+  },
+  "definitions": {
+    "job_applicant": {
+      "type": "object",
+      "properties": {
+        "prospect_id": {
+          "type": "string"
+        },
+        "apply_date": {
+          "type": "string",
+          "format": "date"
+        }
+      }
+    }
+  }
+}
