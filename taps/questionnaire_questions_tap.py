@@ -5,9 +5,12 @@ import singer
 import requests
 from dotenv import load_dotenv
 
-with open('./schemas/questionnaire_questions.json', encoding='utf-8') as json_schema:
+schema_path = join(
+  dirname(__file__),
+  '../schemas/questionnaire_questions.json')
+with open(schema_path, encoding='utf-8') as json_schema:
   schema = json.load(json_schema)
-dotenv_path = join(dirname(__file__), '.env')
+dotenv_path = join(dirname(__file__), '../.env')
 load_dotenv(dotenv_path)
 JAZZHR_KEY = os.environ.get("jazzhr_key")
 

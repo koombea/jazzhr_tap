@@ -1,6 +1,9 @@
+from os.path import join, dirname
 import json
 from jazzhr_tap import run_jazz_tap
-with open('./schemas/categories2applicants.json', encoding='utf-8') as json_schema:
+
+schema_path = join(dirname(__file__), '../schemas/categories2applicants.json')
+with open(schema_path, encoding='utf-8') as json_schema:
   schema = json.load(json_schema)
 route = "categories2applicants"
 stream = "jazzhr_categories2applicants"

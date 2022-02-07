@@ -1,7 +1,9 @@
+from os.path import join, dirname
 import json
 from jazzhr_tap import run_jazz_tap
 
-with open('./schemas/questionnaire_answers.json', encoding='utf-8') as json_schema:
+schema_path = join(dirname(__file__), '../schemas/questionnaire_answers.json')
+with open(schema_path, encoding='utf-8') as json_schema:
   schema = json.load(json_schema)
 
 

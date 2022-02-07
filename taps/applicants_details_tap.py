@@ -5,9 +5,9 @@ import singer
 import requests
 from dotenv import load_dotenv
 
-dotenv_path = join(dirname(__file__), '.env')
-
-with open('./schemas/applicants_details.json', encoding='utf-8') as json_schema:
+dotenv_path = join(dirname(__file__), '../.env')
+schema_path = join(dirname(__file__), '../schemas/applicants_details.json')
+with open(schema_path, encoding='utf-8') as json_schema:
   schema = json.load(json_schema)
 load_dotenv(dotenv_path)
 

@@ -1,11 +1,12 @@
+from os.path import join, dirname
 import json
 from jazzhr_tap import run_jazz_tap
 
-with open('./schemas/activities.json', encoding='utf-8') as json_schema:
+schema_path = join(dirname(__file__), '../schemas/contacts.json')
+with open(schema_path, encoding='utf-8') as json_schema:
   schema = json.load(json_schema)
-route = "activities"
-
-stream = "jazzhr_activities"
+route = "contacts"
+stream = "jazzhr_contacts"
 key_properties = ["id"]
 
 
