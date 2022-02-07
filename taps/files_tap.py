@@ -19,8 +19,6 @@ endpoint = "https://api.resumatorapi.com/v1/"
 def retrieve_applicants_per_page(page):
   authenticated_endpoint = f"{endpoint}applicants/page/{page}?apikey={JAZZHR_KEY}"
   api_response = requests.get(authenticated_endpoint).json()
-  # next line is necessary because when only one element the response is not
-  # a list but the only object
   if not isinstance(api_response, list):
     api_response = [api_response]
   return [r["id"] for r in api_response]
@@ -30,8 +28,6 @@ def retrieve_files_per_page(page):
   authenticated_endpoint = f"{endpoint}files/applicant_id/{current_applicant}/page/{page}"
   file_data = {"apikey": JAZZHR_KEY}
   api_response = requests.get(authenticated_endpoint, json=file_data).json()
-  # next line is necessary because when only one element the response is not
-  # a list but the only object
   if not isinstance(api_response, list):
     api_response = [api_response]
   return api_response

@@ -1,9 +1,21 @@
-{"type": "object",
+{
+  "type": "object",
   "properties": {
-    "id": {"type": "string"},
-    "name": {"type": "string"},
-    "status": {"type": "string"},
-    "created_by": {"type": "string"},
-    "date_created": { "type": "string", "format": "date"}
+    "id": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "created_by": {
+      "type": "string"
+    },
+    "date_created": {
+      "type": "string",
+      "format": "date"
     }
   }
+}

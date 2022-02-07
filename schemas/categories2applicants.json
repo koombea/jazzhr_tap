@@ -1,7 +1,14 @@
-{"type": "object",
+{
+  "type": "object",
   "properties": {
-    "id": {"type": "string"},
-    "applicant_id": {"type": "string"},
-    "category_id": {"type": "string"}
+    "id": {
+      "type": "string"
+    },
+    "applicant_id": {
+      "type": "string"
+    },
+    "category_id": {
+      "type": "string"
     }
   }
+}

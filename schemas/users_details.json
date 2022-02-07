@@ -1,0 +1,57 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string"
+    },
+    "last_name": {
+      "type": "string"
+    },
+    "first_name": {
+      "type": "string"
+    },
+    "date_created": {
+      "type": "string",
+      "format": "date"
+    },
+    "email": {
+      "type": "string"
+    },
+    "activities": {
+      "type": [
+        "null",
+        "array"
+      ],
+      "items": {
+        "$ref": "#/definitions/activity"
+      }
+    }
+  },
+  "definitions": {
+    "activity": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "activity": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "date": {
+          "type": "string",
+          "format": "date"
+        },
+        "time": {
+          "type": "string",
+          "format": "time"
+        }
+      }
+    }
+  }
+}
