@@ -10,7 +10,7 @@ schema_path = join(dirname(__file__), '../schemas/jobs_details.json')
 with open(schema_path, encoding='utf-8') as json_schema:
   schema = json.load(json_schema)
 load_dotenv(dotenv_path)
-stream="jazzhr_jobs_details"
+stream = "jazzhr_jobs_details"
 
 JAZZHR_KEY = os.environ.get("jazzhr_key")
 endpoint = "https://api.resumatorapi.com/v1/"
@@ -48,4 +48,4 @@ for job_ in jobs:
   job_details["minimum_salary"] = float(job_details["minimum_salary"])
   job_details["maximum_salary"] = float(job_details["maximum_salary"])
   singer.write_record(stream_name=stream,
-                    record=job_details)
+                      record=job_details)

@@ -16,6 +16,7 @@ taps = [
   "tasks",
   "users_details",
   "users"
-  ]
+]
 for tap in taps:
-  os.system(f'python3 taps/{tap}_tap.py | target-stitch --config taps/config.json')
+  os.system(
+    f'python3 taps/{tap}_tap.py | target-stitch --config taps/config.json')

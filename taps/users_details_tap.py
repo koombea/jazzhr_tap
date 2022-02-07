@@ -10,7 +10,7 @@ schema_path = join(dirname(__file__), '../schemas/users_details.json')
 with open(schema_path, encoding='utf-8') as json_schema:
   schema = json.load(json_schema)
 load_dotenv(dotenv_path)
-stream="jazzhr_users_details"
+stream = "jazzhr_users_details"
 
 JAZZHR_KEY = os.environ.get("jazzhr_key")
 endpoint = "https://api.resumatorapi.com/v1/"
@@ -46,4 +46,4 @@ for user_ in users:
   if not isinstance(user_details["user_activity"], list):
     user_details["user_activity"] = [user_details["user_activity"]]
   singer.write_record(stream_name=stream,
-                    record=user_details)
+                      record=user_details)

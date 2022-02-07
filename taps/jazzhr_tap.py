@@ -8,7 +8,7 @@ load_dotenv(dotenv_path)
 
 
 def run_jazz_tap(route, schema, read_record, key_properties):
-  stream = "jazzhr_"+route
+  stream = "jazzhr_" + route
   JAZZHR_KEY = os.environ.get("jazzhr_key")
   endpoint = "https://api.resumatorapi.com/v1/"
   page = 1
