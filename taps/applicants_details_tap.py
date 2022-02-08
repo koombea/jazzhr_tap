@@ -12,8 +12,7 @@ def read_record(item):
     "messages",
     "questionnaire",
     "evaluation",
-    "categories",
-    "comments"]
+    "categories"]
   for lst in lists:
     if not isinstance(item[lst], list):
       item[lst] = [item[lst]]
