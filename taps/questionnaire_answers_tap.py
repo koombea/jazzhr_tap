@@ -1,10 +1,4 @@
-from os.path import join, dirname
-import json
 from jazzhr_tap import run_jazz_tap
-
-schema_path = join(dirname(__file__), '../schemas/questionnaire_answers.json')
-with open(schema_path, encoding='utf-8') as json_schema:
-  schema = json.load(json_schema)
 
 
 def read_record(item):
@@ -15,16 +9,7 @@ def read_record(item):
   return item
 
 
-def add_properties_to_schema():
-  for i in range(1, 21):
-    key = '0' + str(i) if i < 10 else str(i)
-    schema['properties']["answer_value_" + key] = {'type': ["string", "null"]}
-    schema['properties']["answer_correct_" +
-                         key] = {'type': ["string", "null"]}
-
-
 route = "questionnaire_answers"
 key_properties = ["questionnaire_id", 'applicant_id', 'job_id']
 
-add_properties_to_schema()
-run_jazz_tap(route, schema, read_record, key_properties)
+run_jazz_tap(route, read_record, key_properties)
