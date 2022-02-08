@@ -12,12 +12,13 @@ def run_jazz_tap(route, read_record, key_properties):
   schema_path = join(dirname(__file__), f'../schemas/{route}.json')
   with open(schema_path, encoding='utf-8') as json_schema:
     schema = json.load(json_schema)
-    if route=="questionnaire_answers":
+    if route == "questionnaire_answers":
       for i in range(1, 21):
         key = '0' + str(i) if i < 10 else str(i)
-        schema['properties']["answer_value_" + key] = {'type': ["string", "null"]}
+        schema['properties']["answer_value_" +
+                             key] = {'type': ["string", "null"]}
         schema['properties']["answer_correct_" +
-                            key] = {'type': ["string", "null"]}
+                             key] = {'type': ["string", "null"]}
   stream = "jazzhr_" + route
   JAZZHR_KEY = os.environ.get("jazzhr_key")
   endpoint = "https://api.resumatorapi.com/v1/"

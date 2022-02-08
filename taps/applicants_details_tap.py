@@ -6,14 +6,14 @@ key_properties = ["id"]
 
 def read_record(item):
   lists = [
-  "activities",
-  "jobs",
-  "feedback",
-  "messages",
-  "questionnaire",
-  "evaluation",
-  "categories",
-  "comments"]
+    "activities",
+    "jobs",
+    "feedback",
+    "messages",
+    "questionnaire",
+    "evaluation",
+    "categories",
+    "comments"]
   for lst in lists:
     if not isinstance(item[lst], list):
       item[lst] = [item[lst]]
