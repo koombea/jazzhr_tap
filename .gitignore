@@ -1,5 +1,3 @@
 .env
 taps/config.json
-__pycache__/*
-/seeds/__pycache__/*
-/taps/__pycache__/*
+**/__pycache__/
