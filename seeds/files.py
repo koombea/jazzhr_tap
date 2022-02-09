@@ -59,6 +59,6 @@ while i < 10:  # this number defines how many new items will be created
     "apikey": JAZZHR_KEY
   }
   response_ = post_jazzhr_files(file_data)
-  print(file_data)
-  print(response_)
+  # print(file_data)
+  # print(response_)
   i = i + 1

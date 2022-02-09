@@ -19,4 +19,4 @@ taps = [
 ]
 for tap in taps:
   os.system(
-    f'python3 taps/{tap}_tap.py | target-stitch --config taps/config.json')
+    f'python3 taps/{tap}_tap.py')

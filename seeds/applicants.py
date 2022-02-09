@@ -68,6 +68,6 @@ while j < 10:
     for current_applicant in current_applicants)
   if not invalid:
     api_response_ = post_jazzhr_applicant(applicant_data)
-    print(api_response_)
+    # print(api_response_)
     current_applicants.append(applicant_data)
     j = j + 1

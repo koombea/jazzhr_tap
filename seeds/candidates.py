@@ -53,6 +53,6 @@ def create_candidates(items_to_create, hire_candidate=False):
         applicants2job_data["workflow_step_id"] = random.choice(
           ["8947217", "8947218"])
       response = post_jazzhr_applicants2jobs(applicants2job_data)
-      print(response)
+      # print(response)
       current_applicants2jobs.append(applicants2job_data)
       i = i + 1
