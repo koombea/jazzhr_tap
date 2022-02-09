@@ -17,8 +17,6 @@ endpoint = "https://api.resumatorapi.com/v1/"
 def retrieve_jazzhr_categories_per_page(page):
   authenticated_endpoint = f"{endpoint}categories/page/{page}?apikey={JAZZHR_KEY}"
   api_response = requests.get(authenticated_endpoint).json()
-  # next line is necessary because when only one element the response is not
-  # a list but the only object
   if not isinstance(api_response, list):
     api_response = [api_response]
   return [r["name"] for r in api_response]
@@ -57,6 +55,5 @@ while i < 20:  # this number defines how many new items will be created
   invalid = any(current_category ==
                 category_data['name'] for current_category in current_categories)
   if not invalid:
-    response_ = post_jazzhr_category(category_data)
-    # print(response_)
+    post_jazzhr_category(category_data)
     i = i + 1

@@ -43,7 +43,5 @@ def run_jazz_tap(route, read_record, key_properties):
   for item_ in items:
 
     item_details = retrieve_jazzhr_items_details(item_)
-    # if not isinstance(user_details["user_activity"], list):
-    #   user_details["user_activity"] = [user_details["user_activity"]]
     singer.write_record(stream_name=stream,
                         record=read_record(item_details))

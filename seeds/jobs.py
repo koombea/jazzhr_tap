@@ -60,7 +60,6 @@ while i < 5:
   invalid = any(current_job == job_data['title']
                 for current_job in current_jobs)
   if not invalid:
-    response_ = post_jazzhr_job(job_data)
-    # print(response_)
+    post_jazzhr_job(job_data)
     current_jobs.append(job_data['title'])
     i = i + 1
