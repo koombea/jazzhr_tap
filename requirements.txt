@@ -3,5 +3,4 @@ numpy==1.21.4
 python-dotenv==0.19.2
 requests==2.20.0
 setuptools==44.0.0
-singer==0.1.1
 singer_python==5.8.0
