@@ -12,8 +12,10 @@ def read_record(item):
 route = "questionnaire_answers"
 key_properties = ["questionnaire_id", 'applicant_id', 'job_id']
 
+
 def main():
   run_jazz_tap(route, read_record, key_properties)
-  
+
+
 if __name__ == "__main__":
   main()

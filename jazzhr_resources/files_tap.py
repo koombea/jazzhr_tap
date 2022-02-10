@@ -15,14 +15,12 @@ def main():
 
   endpoint = "https://api.resumatorapi.com/v1/"
 
-
   def retrieve_applicants_per_page(page):
     authenticated_endpoint = f"{endpoint}applicants/page/{page}?apikey={JAZZHR_KEY}"
     api_response = requests.get(authenticated_endpoint).json()
     if not isinstance(api_response, list):
       api_response = [api_response]
     return [r["id"] for r in api_response]
-
 
   def retrieve_files_per_page(page):
     authenticated_endpoint = f"{endpoint}files/applicant_id/{current_applicant}/page/{page}"
@@ -31,7 +29,6 @@ def main():
     if not isinstance(api_response, list):
       api_response = [api_response]
     return api_response
-
 
   def retrieve_all_items(retrieve_method):
     items = []
@@ -44,7 +41,6 @@ def main():
       if len(response) < 100:
         pursue = False
     return items
-
 
   applicants = list(set(retrieve_all_items(retrieve_applicants_per_page)))
   all_files = []
@@ -61,6 +57,7 @@ def main():
     file["file_size"] = int(file["file_size"])
     singer.write_record(stream_name=stream,
                         record=file)
-  
+
+
 if __name__ == "__main__":
   main()

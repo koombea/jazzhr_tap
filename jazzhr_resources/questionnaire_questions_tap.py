@@ -3,6 +3,7 @@ from os.path import join, dirname
 import singer
 import requests
 
+
 def main():
   keys_path = join(dirname(__file__), f'schemas/keys.json')
   with open(keys_path, encoding='utf-8') as json_keys:
@@ -15,14 +16,12 @@ def main():
 
   endpoint = "https://api.resumatorapi.com/v1/"
 
-
   def retrieve_questionnaires_per_page(page):
     authenticated_endpoint = f"{endpoint}questionnaire_answers/page/{page}?apikey={JAZZHR_KEY}"
     api_response = requests.get(authenticated_endpoint).json()
     if not isinstance(api_response, list):
       api_response = [api_response]
     return [r["questionnaire_id"] for r in api_response]
-
 
   def retrieve_all_questionnaires():
     items = []
@@ -36,14 +35,12 @@ def main():
         pursue = False
     return list(set(items))
 
-
   def retrieve_questionnaire_questions(questionnaire_id):
     authenticated_endpoint = f"{endpoint}questionnaire_questions/questionnaire_id/{questionnaire_id}?apikey={JAZZHR_KEY}"
     api_response = requests.get(authenticated_endpoint).json()
     if not isinstance(api_response, list):
       api_response = [api_response]
     return api_response
-
 
   list_questionnaires = retrieve_all_questionnaires()
   all_questions = []
@@ -61,6 +58,6 @@ def main():
     singer.write_record(stream_name=stream,
                         record=question)
 
-  
+
 if __name__ == "__main__":
   main()
