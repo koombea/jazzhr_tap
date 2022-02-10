@@ -5,7 +5,7 @@ import requests
 
 
 def main():
-  keys_path = join(dirname(__file__), f'schemas/keys.json')
+  keys_path = join(dirname(__file__), 'schemas/keys.json')
   with open(keys_path, encoding='utf-8') as json_keys:
     JAZZHR_KEY = json.load(json_keys)["jazzhr_key"]
   schema_path = join(
