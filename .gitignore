@@ -1,3 +1,4 @@
 .env
-taps/config.json
+jazzhr_resources/config.json
 **/__pycache__/
+jazzhr_resources/schemas/keys.json

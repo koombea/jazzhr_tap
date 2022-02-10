@@ -1,4 +1,4 @@
-from jazzhr_tap import run_jazz_tap
+from jazzhr_resources.jazzhr_tap import run_jazz_tap
 
 
 def read_record(item):
@@ -12,4 +12,8 @@ def read_record(item):
 route = "questionnaire_answers"
 key_properties = ["questionnaire_id", 'applicant_id', 'job_id']
 
-run_jazz_tap(route, read_record, key_properties)
+def main():
+  run_jazz_tap(route, read_record, key_properties)
+  
+if __name__ == "__main__":
+  main()

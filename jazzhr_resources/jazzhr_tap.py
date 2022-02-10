@@ -1,15 +1,14 @@
-import os
 from os.path import join, dirname
 import json
 import singer
 import requests
-from dotenv import load_dotenv
-dotenv_path = join(dirname(__file__), '../.env')
-load_dotenv(dotenv_path)
 
 
 def run_jazz_tap(route, read_record, key_properties):
-  schema_path = join(dirname(__file__), f'../schemas/{route}.json')
+  keys_path = join(dirname(__file__), f'schemas/keys.json')
+  with open(keys_path, encoding='utf-8') as json_keys:
+    JAZZHR_KEY = json.load(json_keys)["jazzhr_key"]
+  schema_path = join(dirname(__file__), f'schemas/{route}.json')
   with open(schema_path, encoding='utf-8') as json_schema:
     schema = json.load(json_schema)
     if route == "questionnaire_answers":
@@ -20,7 +19,6 @@ def run_jazz_tap(route, read_record, key_properties):
         schema['properties']["answer_correct_" +
                              key] = {'type': ["string", "null"]}
   stream = "jazzhr_" + route
-  JAZZHR_KEY = os.environ.get("jazzhr_key")
   endpoint = "https://api.resumatorapi.com/v1/"
   page = 1
 
