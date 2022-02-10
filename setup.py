@@ -1,4 +1,26 @@
 from setuptools import setup
+
+def resources_taps():
+  taps = [
+  "activities",
+  "applicants_details",
+  "applicants",
+  "applicants2jobs",
+  "categories",
+  "categories2applicants",
+  "contacts",
+  "files",
+  "hires",
+  "jobs_details",
+  "jobs",
+  "questionnaire_answers",
+  "questionnaire_questions",
+  "tasks",
+  "users_details",
+  "users"
+  ]
+  return [f"jazzhr_{tap}_tap = jazzhr_resources.{tap}_tap:main" for tap in taps]
+
 setup(name='jazzhr-tap',
       version='0.0.1',
       description="Singer tap to extract and load all data from tap jazzhr-api endpoints",
@@ -16,10 +38,13 @@ setup(name='jazzhr-tap',
           'python-dotenv>=0.19.2',
           'setuptools>=44.0.0'
       ],
-      entry_points='''
-          [console_scripts]
-          jazzhr_tap = jazzhr_resources:main
-      ''',
+      entry_points={
+        'console_scripts': ['jazzhr_tap = jazzhr_resources:main']+resources_taps()
+        },
+    #   entry_points='''
+    #       [console_scripts]
+    #       jazzhr_tap = jazzhr_resources:main
+    #   ''',
        packages=["jazzhr_resources"],
       include_package_data=True,
       # ,
