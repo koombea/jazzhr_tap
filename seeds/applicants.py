@@ -67,7 +67,6 @@ while j < 10:
     or (current_applicant['email'] == applicant_data['email'])
     for current_applicant in current_applicants)
   if not invalid:
-    api_response_ = post_jazzhr_applicant(applicant_data)
-    # print(api_response_)
+    post_jazzhr_applicant(applicant_data)
     current_applicants.append(applicant_data)
     j = j + 1

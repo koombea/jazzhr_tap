@@ -58,7 +58,5 @@ while i < 10:  # this number defines how many new items will be created
     "file_privacy": random.choice([0, 30, 40]),
     "apikey": JAZZHR_KEY
   }
-  response_ = post_jazzhr_files(file_data)
-  # print(file_data)
-  # print(response_)
+  post_jazzhr_files(file_data)
   i = i + 1

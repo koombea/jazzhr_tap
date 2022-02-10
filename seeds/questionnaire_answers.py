@@ -68,7 +68,6 @@ while i < 10:  # this number defines how many new items will be created
       "answer_value_04": np.random.randint(0, 100),
       "apikey": JAZZHR_KEY
     }
-    response_ = post_jazzhr_questionnaire_answers(qa_data)
-    # print(response_)
+    post_jazzhr_questionnaire_answers(qa_data)
     current_qa_list.append(qa_data)
     i = i + 1

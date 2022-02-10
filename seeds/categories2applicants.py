@@ -60,7 +60,6 @@ while i < 20:  # this number defines how many new items will be created
   invalid = any(current_c2a['applicant_id'] == c2a_data['applicant_id'] and current_c2a['category_id']
                 == c2a_data['category_id'] for current_c2a in current_categories2applicants)
   if not invalid:
-    response_ = post_jazzhr_categories2applicants(c2a_data)
-    print(response_)
+    post_jazzhr_categories2applicants(c2a_data)
     current_categories2applicants.append(c2a_data)
     i = i + 1

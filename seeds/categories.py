@@ -57,6 +57,5 @@ while i < 20:  # this number defines how many new items will be created
   invalid = any(current_category ==
                 category_data['name'] for current_category in current_categories)
   if not invalid:
-    response_ = post_jazzhr_category(category_data)
-    # print(response_)
+    post_jazzhr_category(category_data)
     i = i + 1
