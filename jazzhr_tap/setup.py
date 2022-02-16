@@ -36,7 +36,7 @@ setup(
     "schemas": ["jazzhr_resources/schemas/*.json"]},
   install_requires=[
     'requests>=2.20.0',
-    'singer-python>=5.12.2',
+    'singer-python',
     'numpy>=1.21.4',
     'python-dotenv>=0.19.2',
     'setuptools>=44.0.0'],
