@@ -6,7 +6,7 @@ app = Flask(__name__)
 @app.route('/')
 def home():
   subprocess.Popen(
-    'cd ./jazzhr_tap && python3 -m jazzhr_resources | target-stitch --config ./jazzhr_resources/config.json',
+    'python3 -m jazzhr_resources | target-stitch --config ./jazzhr_resources/config.json',
     stdin=subprocess.PIPE,
     shell=True
   )

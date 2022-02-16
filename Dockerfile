@@ -11,11 +11,9 @@ RUN pip3 install numpy
 RUN pip3 install python-dotenv
 RUN pip3 install setuptools
 WORKDIR /usr/app/src
-COPY app.py ./
 COPY jazzhr_tap ./jazzhr_tap
 WORKDIR /usr/app/src/jazzhr_tap
 RUN pip3 install -e .
 RUN pip3 install target-stitch
 RUN pip3 install flask
-WORKDIR /usr/app/src
 CMD python3 app.py
