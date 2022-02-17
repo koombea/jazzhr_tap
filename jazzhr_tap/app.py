@@ -1,5 +1,6 @@
 from flask import Flask
 import subprocess
+import os
 
 app = Flask(__name__)
 
@@ -12,4 +13,5 @@ def home():
   )
   return "done"
 
-app.run(port=8080, host='0.0.0.0')
+port = os.environ.get("PORT", 8080)
+app.run(debug=False, port=port, host='0.0.0.0')
