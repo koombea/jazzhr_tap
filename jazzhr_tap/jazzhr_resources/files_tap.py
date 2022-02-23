@@ -4,6 +4,9 @@ import singer
 import requests
 from requests.adapters import HTTPAdapter
 from urllib3.util import Retry
+import backoff
+from requests.exceptions import HTTPError
+from simplejson import JSONDecodeError
 
 
 session = requests.Session()
@@ -24,6 +27,10 @@ def main():
 
   endpoint = "https://api.resumatorapi.com/v1/"
 
+  @backoff.on_exception(backoff.constant,
+                           (requests.exceptions.ConnectionError, HTTPError, JSONDecodeError),
+                          max_tries=10,
+                          interval=60)
   def retrieve_applicants_per_page(page):
     authenticated_endpoint = f"{endpoint}applicants/page/{page}?apikey={JAZZHR_KEY}"
     api_response = session.get(authenticated_endpoint).json()
@@ -31,6 +38,10 @@ def main():
       api_response = [api_response]
     return [r["id"] for r in api_response]
 
+  @backoff.on_exception(backoff.constant,
+                           (requests.exceptions.ConnectionError, HTTPError, JSONDecodeError),
+                          max_tries=10,
+                          interval=60)
   def retrieve_files_per_page(page):
     authenticated_endpoint = f"{endpoint}files/applicant_id/{current_applicant}/page/{page}"
     file_data = {"apikey": JAZZHR_KEY}

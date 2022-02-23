@@ -8,7 +8,6 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-  breakpoint()
   keys = {
     "jazzhr_key": os.environ.get('jazzhr_key')
   }
