@@ -2,6 +2,15 @@ from os.path import join, dirname
 import json
 import singer
 import requests
+from requests.adapters import HTTPAdapter
+from urllib3.util import Retry
+
+
+session = requests.Session()
+retry = Retry(connect=3, backoff_factor=0.5)
+adapter = HTTPAdapter(max_retries=retry)
+session.mount('http://', adapter)
+session.mount('https://', adapter)
 
 
 def run_jazz_tap(route, read_record, key_properties):
@@ -24,7 +33,7 @@ def run_jazz_tap(route, read_record, key_properties):
 
   def retrieve_jazzhr():
     authenticated_endpoint = f"{endpoint}{route}/page/{page}?apikey={JAZZHR_KEY}"
-    api_response = requests.get(authenticated_endpoint).json()
+    api_response = session.get(authenticated_endpoint).json()
     return api_response
 
   singer.write_schema(stream_name=stream, schema=schema,

@@ -2,6 +2,15 @@ import json
 from os.path import join, dirname
 import singer
 import requests
+from requests.adapters import HTTPAdapter
+from urllib3.util import Retry
+
+
+session = requests.Session()
+retry = Retry(connect=3, backoff_factor=0.5)
+adapter = HTTPAdapter(max_retries=retry)
+session.mount('http://', adapter)
+session.mount('https://', adapter)
 
 
 def main():
@@ -17,7 +26,7 @@ def main():
 
   def retrieve_applicants_per_page(page):
     authenticated_endpoint = f"{endpoint}applicants/page/{page}?apikey={JAZZHR_KEY}"
-    api_response = requests.get(authenticated_endpoint).json()
+    api_response = session.get(authenticated_endpoint).json()
     if not isinstance(api_response, list):
       api_response = [api_response]
     return [r["id"] for r in api_response]
@@ -25,7 +34,7 @@ def main():
   def retrieve_files_per_page(page):
     authenticated_endpoint = f"{endpoint}files/applicant_id/{current_applicant}/page/{page}"
     file_data = {"apikey": JAZZHR_KEY}
-    api_response = requests.get(authenticated_endpoint, json=file_data).json()
+    api_response = session.get(authenticated_endpoint, json=file_data).json()
     if not isinstance(api_response, list):
       api_response = [api_response]
     return api_response

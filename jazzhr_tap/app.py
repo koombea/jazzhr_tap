@@ -8,6 +8,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
+  breakpoint()
   keys = {
     "jazzhr_key": os.environ.get('jazzhr_key')
   }
@@ -33,4 +34,4 @@ def home():
 
 
 port = os.environ.get("PORT", 8080)
-app.run(debug=False, port=port, host='0.0.0.0')
+app.run(debug=True, port=port, host='0.0.0.0')

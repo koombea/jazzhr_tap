@@ -1,5 +1,6 @@
 from jazzhr_resources.jazzhr_details_tap import run_jazz_tap
 
+
 route = "applicants"
 key_properties = ["id"]
 
