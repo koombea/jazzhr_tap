@@ -9,9 +9,8 @@ app = Flask(__name__)
 @app.route('/')
 def home():
   keys = {
-    "jazzhr_key": os.environ.get('jazzhr_key')
+  "jazzhr_key": os.environ.get('jazzhr_key')
   }
-
   stitch_config_json = {
     "client_id" : os.environ.get('client_id'),
     "token" : os.environ.get('token'),
@@ -25,8 +24,26 @@ def home():
 
   with open('./jazzhr_resources/config.json', 'w') as outfile:
     json.dump(stitch_config_json, outfile)
-  subprocess.Popen(
-    'python3 -m jazzhr_resources | target-stitch --config ./jazzhr_resources/config.json',
+  taps = [
+  "activities",
+  "applicants_details",
+  "applicants",
+  "applicants2jobs",
+  "categories",
+  "categories2applicants",
+  "contacts",
+  "files",
+  "hires",
+  "jobs_details",
+  "jobs",
+  "questionnaire_answers",
+  "questionnaire_questions",
+  "tasks",
+  "users_details",
+  "users"]
+  for tap in taps:
+    subprocess.Popen(
+    f'python3 jazzhr_resources/taps/{tap}_tap.py | target-stitch --config jazzhr_resources/config.json',
     stdin=subprocess.PIPE,
     shell=True)
   return "done"

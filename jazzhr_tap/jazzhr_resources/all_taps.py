@@ -1,4 +1,4 @@
-from jazzhr_resources import activities_tap, applicants_details_tap, applicants_tap, applicants2jobs_tap, categories_tap, categories2applicants_tap, contacts_tap, files_tap, hires_tap, jobs_details_tap, jobs_tap, questionnaire_answers_tap, questionnaire_questions_tap, tasks_tap, users_details_tap, users_tap
+from jazzhr_resources.taps import activities_tap, applicants_details_tap, applicants_tap, applicants2jobs_tap, categories_tap, categories2applicants_tap, contacts_tap, files_tap, hires_tap, jobs_details_tap, jobs_tap, questionnaire_answers_tap, questionnaire_questions_tap, tasks_tap, users_details_tap, users_tap
 
 
 def main():
