@@ -1,9 +1,8 @@
 import os, sys
 sys.path.insert(0, os.getcwd()) 
-import singer
 from jazzhr_resources.http_request import call_api
 from jazzhr_resources.load_jsons import load_schema
-
+from  jazzhr_resources import write_records
 
 def main():
   schema = load_schema("questionnaire_questions")
@@ -40,15 +39,13 @@ def main():
     all_questions = all_questions + retrieve_questionnaire_questions(q)
 
   stream = "jazzhr_questionnaire_questions"
-  singer.write_schema(stream_name=stream, schema=schema, key_properties=[
-                      "questionnaire_id", "question_order"])
-
-  for question in all_questions:
-    question["question_mandatory"] = (question["question_mandatory"] == 'Yes')
-    question["question_order"] = int(question["question_order"])
-    singer.write_record(stream_name=stream,
-                        record=question)
-
+  
+  def read_record(item_):
+    item_["question_mandatory"] = (item_["question_mandatory"] == 'Yes')
+    item_["question_order"] = int(item_["question_order"])
+    return item_
+  
+  write_records.main(stream, schema, ["questionnaire_id", "question_order"], read_record, all_questions)
 
 if __name__ == "__main__":
   main()

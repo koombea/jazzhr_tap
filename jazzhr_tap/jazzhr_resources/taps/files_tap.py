@@ -1,9 +1,8 @@
 import os, sys
-sys.path.insert(0, os.getcwd()) 
-import singer
+sys.path.insert(0, os.getcwd())
 from jazzhr_resources.http_request import call_api
 from jazzhr_resources.load_jsons import load_schema
-
+from  jazzhr_resources import write_records
 
 def main():
   schema = load_schema("files")
@@ -45,14 +44,10 @@ def main():
     all_files = all_files + retrieve_all_items(retrieve_files_per_page)
 
   stream = "jazzhr_files"
-
-  singer.write_schema(stream_name=stream, schema=schema, key_properties=["id"])
-
-  for file in all_files:
-    file["file_size"] = int(file["file_size"])
-    singer.write_record(stream_name=stream,
-                        record=file)
-
+  def read_record(item_):
+    item_["file_size"] = int(item_["file_size"])
+    return item_
+  write_records.main(stream, schema, ["id"], read_record, all_files)
 
 if __name__ == "__main__":
   main()

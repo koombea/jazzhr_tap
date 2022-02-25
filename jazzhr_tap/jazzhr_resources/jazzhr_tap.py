@@ -1,6 +1,6 @@
-import singer
 from jazzhr_resources.http_request import call_api
 from jazzhr_resources.load_jsons import load_schema
+from  jazzhr_resources import write_records
 
 
 def run_jazz_tap(route, read_record, key_properties):
@@ -21,10 +21,6 @@ def run_jazz_tap(route, read_record, key_properties):
     if not isinstance(api_response, list):
       api_response = [api_response]
     return api_response
-
-  singer.write_schema(stream_name=stream, schema=schema,
-                      key_properties=key_properties)
-
   items = []
   pursue = True
   while pursue:
@@ -33,6 +29,4 @@ def run_jazz_tap(route, read_record, key_properties):
     page = page + 1
     if len(response) < 100:
       pursue = False
-  for item in items:
-    singer.write_record(stream_name=stream,
-                        record=read_record(item))
+  write_records.main(stream, schema, key_properties, read_record, items)
